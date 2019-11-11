@@ -2,6 +2,7 @@
 #include "Spawner.h"
 #include "ObstacleItem.h"
 #include "Game.h"
+#include "Explosion.h"
 
 extern Game * game; //there
 
@@ -32,4 +33,10 @@ void Spawner::spawnSmallObstacle(qreal xParentCoordinate, qreal yParentCoordinat
 void Spawner::spawnBigObstacle(){
     ObstacleItem * obsta = new ObstacleItem(0, NULL, NULL, NULL, NULL);
     game->scene->addItem(obsta);
+}
+
+void Spawner::showExplosion(qreal xParentCoordinate, qreal yParentCoordinate){
+    Explosion * explo = new Explosion(xParentCoordinate, yParentCoordinate);
+    game->scene->addItem(explo);
+
 }

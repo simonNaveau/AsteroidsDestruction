@@ -17,5 +17,12 @@
         <file>Obstacles/Small0.png</file>
         <file>Obstacles/Small1.png</file>
         <file>Obstacles/Small2.png</file>
+        <file>Explosions/expl1.png</file>
+        <file>Explosions/expl2.png</file>
+        <file>Explosions/expl3.png</file>
+        <file>Explosions/expl4.png</file>
+        <file>Explosions/expl5.png</file>
+        <file>Explosions/expl6.png</file>
+        <file>Explosions/expl7.png</file>
     </qresource>
 </RCC>

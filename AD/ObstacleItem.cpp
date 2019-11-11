@@ -81,7 +81,6 @@ ObstacleItem::ObstacleItem(int size, double angle, double speed, qreal xParentCo
 
 ObstacleItem::~ObstacleItem(){
     delete timer;
-    qDebug() << "Hey";
 }
 
 void ObstacleItem::move(){
