@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/sounds">
+        <file>laser.mp3</file>
+        <file>explosion.mp3</file>
+        <file>explosion8bits.mp3</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>ship.png</file>
+        <file>background.png</file>
+        <file>Shot.png</file>
+        <file>Obstacles/Big0.png</file>
+        <file>Obstacles/Big1.png</file>
+        <file>Obstacles/Big2.png</file>
+        <file>Obstacles/Int0.png</file>
+        <file>Obstacles/Int1.png</file>
+        <file>Obstacles/Int2.png</file>
+        <file>Obstacles/Small0.png</file>
+        <file>Obstacles/Small1.png</file>
+        <file>Obstacles/Small2.png</file>
+    </qresource>
+</RCC>
