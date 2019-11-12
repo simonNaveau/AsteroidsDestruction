@@ -62,6 +62,8 @@ void Shot::checkObstacleCollision(){
             } else if(qgraphicsitem_cast<ObstacleItem *>(colliding_items[i])->obstacleSize()==1){
                 game->spawner->spawnSmallObstacle(colliding_items[i]->x(), colliding_items[i]->y());
                 game->spawner->showExplosion(colliding_items[i]->x(), colliding_items[i]->y());
+            } else if(qgraphicsitem_cast<ObstacleItem *>(colliding_items[i])->obstacleSize()==2) {
+                game->spawner->showExplosion(colliding_items[i]->x(), colliding_items[i]->y());
             }
 
             scene()->removeItem(colliding_items[i]); //remove from scene

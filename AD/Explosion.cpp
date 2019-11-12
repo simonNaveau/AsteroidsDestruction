@@ -10,7 +10,7 @@ Explosion::Explosion(qreal xParentCoordinate, qreal yParentCoordinate, QGraphics
     //this->show();
     timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(nextImage()));
-    timer->start(100);
+    timer->start(50);
 }
 
 Explosion::~Explosion(){
@@ -26,6 +26,6 @@ void Explosion::nextImage(){
         setPixmap(QPixmap(directory));
         currentImage = currentImage+1;
         timer->stop();
-        timer->start(100);
+        timer->start(50);
     }
 }
