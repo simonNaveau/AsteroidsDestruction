@@ -4,6 +4,7 @@
 #include <QGraphicsTextItem>
 #include <QObject>
 #include <QMediaPlayer>
+#include <QTimer>
 
 class Spaceship: public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
@@ -20,6 +21,10 @@ public:
     int getLife();
 public slots:
     void moveAutoForward();
+    void resetSpeed();
+private:
+    int speed;
+    QTimer * timer;
 };
 
 #endif // SPACESHIP_H
