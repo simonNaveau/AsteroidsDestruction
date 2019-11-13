@@ -37,6 +37,11 @@ void Spaceship::keyPressEvent(QKeyEvent *event){
 
         //Play sound
         game->soundBox->playShot();
+    } else if (event->key() == Qt::Key_Up){
+        speed = 8;
+        timer = new QTimer();
+        connect(timer, SIGNAL(timeout()), this, SLOT(resetSpeed()));
+        timer->start(100);
     }
 }
 
@@ -58,11 +63,16 @@ void Spaceship::rotateLeft(){
 
 void Spaceship::moveAutoForward(){
     double angle = rotation()-90;
-    double dy = 1 * qSin(qDegreesToRadians(angle));
-    double dx = 1 * qCos(qDegreesToRadians(angle));
+    double dy = speed * qSin(qDegreesToRadians(angle));
+    double dx = speed * qCos(qDegreesToRadians(angle));
     if(x()+dx+pixmap().width() <= scene()->width() && x()+dx >= 0 && y()+dy+pixmap().height() <= scene()->height() && y()+dy >=0 ){
         setPos(x()+dx,y()+dy);
     }
+}
+
+void Spaceship::resetSpeed(){
+    speed = 1;
+    delete timer;
 }
 
 /**
