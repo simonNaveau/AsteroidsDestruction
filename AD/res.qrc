@@ -25,4 +25,7 @@
         <file>Explosions/expl6.png</file>
         <file>Explosions/expl7.png</file>
     </qresource>
+    <qresource prefix="/fonts">
+        <file>planetncompact.ttf</file>
+    </qresource>
 </RCC>

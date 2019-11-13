@@ -5,11 +5,28 @@
 #include "Game.h"
 #include <QMediaPlayer>
 #include <QImage>
+#include "Button.h"
+#include <QGraphicsTextItem>
+#include <QFontDatabase>
+#include <QDebug>
 
 Game::Game(QWidget *parent){
 
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setFixedSize(1280, 720); //Size of the mainWindow
+    setBackgroundBrush(QBrush(QImage(":/images/background.png")));
+
     // create a scene
     scene = new QGraphicsScene();
+    scene->setSceneRect(0,0,1280,720);
+    setScene(scene);
+}
+
+void Game::start() {
+    qDebug() << "ok";
+    // clear the screen
+    scene->clear();
 
     /**
       Create different text informations displayed on screen and managing the sound
@@ -34,27 +51,10 @@ Game::Game(QWidget *parent){
     ship = new Spaceship(1000);
     health->setHealth(ship->getLife());
     ship->setPixmap(QPixmap(":/images/ship.png"));
-    scene->addItem(ship);   //add the ship to the scene
-
     ship->setFlag(QGraphicsItem::ItemIsFocusable);  //make focusable
     ship->setFocus();
-
-    /**
-      Set window properties
-        -> Disable Scroll bars
-        -> Set background picture from resources
-        -> Show and set view
-        -> Set playable ship starting position
-     */
-    QGraphicsView * view = new QGraphicsView(scene);
-    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->setBackgroundBrush(QBrush(QImage(":/images/background.png")));
-
-    view->show();   //show view
-    view->setFixedSize(1280, 720); //Size of the mainWindow
-    scene->setSceneRect(0,0,1280,720);
-    ship->setPos((view->width()/2)-ship->pixmap().width()/2, (view->height()/2)-ship->pixmap().height()/2); //Set spaceship position for start
+    scene->addItem(ship);   //add the ship to the scene
+    ship->setPos((this->width()/2)-ship->pixmap().width()/2, (this->height()/2)-ship->pixmap().height()/2); //Set spaceship position for start
 
     /**
       Create object spawner
@@ -65,4 +65,34 @@ Game::Game(QWidget *parent){
     QTimer * timer = new QTimer();
     QObject::connect(timer, SIGNAL(timeout()),spawner,SLOT(spawnBigObstacle()));
     timer->start(2000);
+}
+
+void Game::displayMenu() {
+    // game title text
+    QGraphicsTextItem* title = new QGraphicsTextItem(QString("Asteroid Destruction"));
+    title->setDefaultTextColor(QColor(255,255,255,255));
+    QFontDatabase fontDB;
+    fontDB.addApplicationFont(":/fonts/planetncompact.ttf");
+    QFont font("Planet N Compact",50);
+    title->setFont(font);
+    int txPos = this->width()/2 - title->boundingRect().width()/2;
+    int tyPos = 100;
+    title->setPos(txPos,tyPos);
+    scene->addItem(title);
+
+    // play button
+    Button* playButton = new Button(QString("Play"));
+    int pxPos = 50;
+    int pyPos = 370;
+    playButton->setPos(pxPos,pyPos);
+    connect(playButton,SIGNAL(clicked()),this,SLOT(start()));
+    scene->addItem(playButton);
+
+    // exit button
+    Button* exitButton = new Button(QString("Exit"));
+    int exPos = 50;
+    int eyPos = 450;
+    exitButton->setPos(exPos,eyPos);
+    connect(exitButton,SIGNAL(clicked()),this,SLOT(close()));
+    scene->addItem(exitButton);
 }
