@@ -19,6 +19,10 @@ Spaceship::Spaceship(int startingLifePoints, QGraphicsItem *parent): QObject(), 
     timer->start(5);
 }
 
+Spaceship::~Spaceship(){
+    timer->stop();
+}
+
 /**
  * @brief Spaceship::keyPressEvent Waiting to do actions on keys pressed
  * @param event

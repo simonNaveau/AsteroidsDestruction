@@ -145,19 +145,23 @@ void ObstacleItem::checkSpaceshipCollision(){
                 game->ship->decreaseLife(25);//decrease health
             }
 
+            //Add loosing screen here
             if(game->health->getHealth()<=0){
 
+                QList<QGraphicsItem *> items = game->items();
+                for(int i=0, n=items.size(); i<n; ++i){
+                    if(typeid(*(items[i])) == typeid(ObstacleItem) && items[i] != this){
+                        scene()->removeItem(items[i]);
+                        delete items[i];
+                    }
+                }
+                game->stopSpawner();
+                game->ship->clearFocus();
+                game->ship->setVisible(0);
+                game->health->setVisible(0);
+                game->score->setVisible(0);
 
-
-                //Add loosing screen here
-
-
-
-
-                scene()->removeItem(this);
-                scene()->removeItem(colliding_items[i]);
-                delete colliding_items[i]; //Delete the spaceship  End game ERROR HERE
-                delete this; //Delete the obstacle
+                game->displayMenu();//Change by display GAMEOVER
                 return;
             } else {
                 scene()->removeItem(this);

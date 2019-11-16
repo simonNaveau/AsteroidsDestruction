@@ -9,6 +9,7 @@
 #include "Health.h"
 #include "Spawner.h"
 #include "SoundBox.h"
+#include <QTimer>
 
 class Game: public QGraphicsView{
     Q_OBJECT
@@ -23,9 +24,11 @@ public:
     Health * health;
     Spawner * spawner;
     SoundBox * soundBox;
+    QTimer * spawnTimer;
 
     // methods
     void displayMenu();
+    void stopSpawner();
 
     public slots:
         void start();

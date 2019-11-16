@@ -48,7 +48,7 @@ void Game::start() {
         -> Set picture
         -> Set focusable
      **/
-    ship = new Spaceship(1000);
+    ship = new Spaceship(100);
     health->setHealth(ship->getLife());
     ship->setPixmap(QPixmap(":/images/ship.png"));
     ship->setFlag(QGraphicsItem::ItemIsFocusable);  //make focusable
@@ -62,9 +62,9 @@ void Game::start() {
      **/
     //spawn enemies
     spawner = new Spawner();
-    QTimer * timer = new QTimer();
-    QObject::connect(timer, SIGNAL(timeout()),spawner,SLOT(spawnBigObstacle()));
-    timer->start(2000);
+    spawnTimer = new QTimer();
+    QObject::connect(spawnTimer, SIGNAL(timeout()),spawner,SLOT(spawnBigObstacle()));
+    spawnTimer->start(2000);
 }
 
 void Game::displayMenu() {
@@ -95,4 +95,8 @@ void Game::displayMenu() {
     exitButton->setPos(exPos,eyPos);
     connect(exitButton,SIGNAL(clicked()),this,SLOT(close()));
     scene->addItem(exitButton);
+}
+
+void Game::stopSpawner(){
+    spawnTimer->stop();
 }

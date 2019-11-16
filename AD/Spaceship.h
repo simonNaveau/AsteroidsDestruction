@@ -12,6 +12,7 @@ public:
     int lifePoints;
 
     Spaceship(int startingLifePoints, QGraphicsItem * parent=0);
+    ~ Spaceship();
     void keyPressEvent(QKeyEvent * event);
     void rotateRight();
     void rotateLeft();
