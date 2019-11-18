@@ -3,6 +3,7 @@
 #include "ObstacleItem.h"
 #include "Game.h"
 #include "Explosion.h"
+#include "LifeBonus.h"
 
 extern Game * game; //there
 
@@ -21,13 +22,17 @@ void Spawner::spawnIntermediateObstacle(qreal xParentCoordinate, qreal yParentCo
 }
 
 void Spawner::spawnSmallObstacle(qreal xParentCoordinate, qreal yParentCoordinate){
-    //Create explosion
     ObstacleItem * int1 = new ObstacleItem(2, 360, 2.5, xParentCoordinate, yParentCoordinate);
     ObstacleItem * int2 = new ObstacleItem(2, 120, 2.5, xParentCoordinate, yParentCoordinate);
     ObstacleItem * int3 = new ObstacleItem(2, 240, 2.5, xParentCoordinate, yParentCoordinate);
     game->scene->addItem(int1);
     game->scene->addItem(int2);
     game->scene->addItem(int3);
+}
+
+void Spawner::spawnLifeBonus(int lchange, qreal xParentCoordinate, qreal yParentCoordinate){
+    LifeBonus * bonus = new LifeBonus(lchange, xParentCoordinate, yParentCoordinate);
+    game->scene->addItem(bonus);
 }
 
 void Spawner::spawnBigObstacle(){

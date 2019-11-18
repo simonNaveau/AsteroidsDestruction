@@ -7,6 +7,7 @@ class LifeChanger {
 public:
     LifeChanger(int lifeChange);
     void operator-(Spaceship * ship);
+    void operator+(Spaceship * ship);
 public:
     int lifeChange;
 };

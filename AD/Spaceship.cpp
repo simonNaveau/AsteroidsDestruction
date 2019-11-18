@@ -1,6 +1,7 @@
 #include "Spaceship.h"
 #include "ObstacleItem.h"
 #include "Shot.h"
+#include "LifeBonus.h"
 #include <QKeyEvent>
 #include <QGraphicsScene>
 #include "Game.h"
@@ -72,6 +73,7 @@ void Spaceship::moveAutoForward(){
     if(x()+dx+pixmap().width() <= scene()->width() && x()+dx >= 0 && y()+dy+pixmap().height() <= scene()->height() && y()+dy >=0 ){
         setPos(x()+dx,y()+dy);
     }
+    checkBonusCollision();
 }
 
 void Spaceship::resetSpeed(){
@@ -97,6 +99,18 @@ void Spaceship::increaseLife(int change){
 
 int Spaceship::getLife(){
     return lifePoints;
+}
+
+void Spaceship::checkBonusCollision(){
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+    for(int i=0, n=colliding_items.size(); i<n; ++i){
+        if(typeid(*(colliding_items[i])) == typeid(LifeBonus)){
+            qgraphicsitem_cast<LifeBonus *>(colliding_items[i])->operator+(this);
+            scene()->removeItem(colliding_items[i]);
+            delete colliding_items[i];
+            return;
+        }
+    }
 }
 
 

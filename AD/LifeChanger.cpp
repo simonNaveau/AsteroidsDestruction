@@ -15,3 +15,8 @@ void LifeChanger::operator-(Spaceship * ship){
     }
 }
 
+void LifeChanger::operator+(Spaceship *ship){
+    ship->lifePoints = ship->lifePoints+this->lifeChange;
+    game->health->setHealth(ship->getLife());
+}
+

@@ -10,6 +10,8 @@ class ObstacleItem: public QObject, public QGraphicsPixmapItem{
 public:
     ObstacleItem(int size, double angle, double speed, qreal xParentCoordinate, qreal yParentCoordinate, QGraphicsItem * parent=0);
     ~ ObstacleItem();
+    QTimer* getTimer();
+    void setTimer(QTimer*);
     qreal spawnX;
     qreal spawnY;
 

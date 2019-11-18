@@ -172,3 +172,11 @@ void ObstacleItem::checkSpaceshipCollision(){
         }
     }
 }
+
+QTimer* ObstacleItem::getTimer(){
+    return this->timer;
+}
+
+void ObstacleItem::setTimer(QTimer * newTimer){
+    this->timer = newTimer;
+}

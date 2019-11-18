@@ -20,6 +20,7 @@ public:
     void decreaseLife(int change);
     void increaseLife(int change);
     int getLife();
+    void checkBonusCollision();
 public slots:
     void moveAutoForward();
     void resetSpeed();

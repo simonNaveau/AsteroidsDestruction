@@ -58,6 +58,7 @@ void Shot::checkObstacleCollision(){
 
             if(qgraphicsitem_cast<ObstacleItem *>(colliding_items[i])->obstacleSize()==0){
                 game->spawner->spawnIntermediateObstacle(colliding_items[i]->x(), colliding_items[i]->y());
+                if(rand()%20 <=1) game->spawner->spawnLifeBonus(100, colliding_items[i]->x(), colliding_items[i]->y());
                 game->spawner->showExplosion(colliding_items[i]->x(), colliding_items[i]->y());
             } else if(qgraphicsitem_cast<ObstacleItem *>(colliding_items[i])->obstacleSize()==1){
                 game->spawner->spawnSmallObstacle(colliding_items[i]->x(), colliding_items[i]->y());

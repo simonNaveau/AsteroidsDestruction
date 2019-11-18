@@ -21,6 +21,7 @@ SOURCES += \
     Explosion.cpp \
     Game.cpp \
     Health.cpp \
+    LifeBonus.cpp \
     LifeChanger.cpp \
     ObstacleItem.cpp \
     Score.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
     Explosion.h \
     Game.h \
     Health.h \
+    LifeBonus.h \
     LifeChanger.h \
     ObstacleItem.h \
     Score.h \

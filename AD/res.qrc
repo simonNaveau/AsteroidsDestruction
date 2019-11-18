@@ -24,6 +24,7 @@
         <file>Explosions/expl5.png</file>
         <file>Explosions/expl6.png</file>
         <file>Explosions/expl7.png</file>
+        <file>bonus.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>planetncompact.ttf</file>
