@@ -21,6 +21,4 @@ A little view created in Adobe Illustrator to show what the game should look lik
 
 ## > To add on Gameplay part (Items, movements, ...)
 
-* Redefine "-" operation to decrease item's LP. !important
-* Find a way to add dual heritage. !important
 * Add exception handling. !important
