@@ -24,3 +24,8 @@ void Score::decrease(){
     score -= 10;
     setPlainText("Score: "+QString::number(score));
 }
+
+void Score::setScore(int newScore) {
+    score = newScore;
+    setPlainText("Score: "+QString::number(score));
+}

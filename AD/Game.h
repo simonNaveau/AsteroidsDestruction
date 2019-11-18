@@ -10,6 +10,7 @@
 #include "Spawner.h"
 #include "SoundBox.h"
 #include <QTimer>
+#include "Button.h"
 
 class Game: public QGraphicsView{
     Q_OBJECT
@@ -25,10 +26,17 @@ public:
     Spawner * spawner;
     SoundBox * soundBox;
     QTimer * spawnTimer;
+    QGraphicsTextItem * title;
+    QGraphicsTextItem * finalScore;
+    Button * playButton;
+    Button * exitButton;
+    QFont font;
 
     // methods
     void displayMenu();
     void stopSpawner();
+    void displayDefeat();
+    void displayVictory();
 
     public slots:
         void start();

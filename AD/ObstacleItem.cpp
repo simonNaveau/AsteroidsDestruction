@@ -161,7 +161,8 @@ void ObstacleItem::checkSpaceshipCollision(){
                 game->health->setVisible(0);
                 game->score->setVisible(0);
 
-                game->displayMenu();//Change by display GAMEOVER
+                game->displayDefeat();
+                delete this;
                 return;
             } else {
                 scene()->removeItem(this);

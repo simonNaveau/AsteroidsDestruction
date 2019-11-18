@@ -3,6 +3,7 @@
 #include <QBrush>
 #include <QFont>
 #include <QFontDatabase>
+#include <QPen>
 
 Button::Button(QString name, QGraphicsItem *parent): QGraphicsRectItem(parent) {
     // draw the button
@@ -10,12 +11,12 @@ Button::Button(QString name, QGraphicsItem *parent): QGraphicsRectItem(parent) {
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::transparent);
     setBrush(brush);
+    setPen(QPen(Qt::NoPen));
 
     // draw the text
     text = new QGraphicsTextItem(name,this);
     text->setDefaultTextColor(QColor(255,255,255,255));
-    QFont font("Planet N Compact",30);
-    text->setFont(font);
+    text->setFont(QFont("Planet N Compact",30));
     int textWidth = text->boundingRect().width();
     int textHeight = text->boundingRect().height();
     setRect(0,0,textWidth+8,textHeight+8);

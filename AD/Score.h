@@ -10,6 +10,7 @@ public:
     void increase();
     int getScore();
     void decrease();
+    void setScore(int);
 
 private:
     int score;
