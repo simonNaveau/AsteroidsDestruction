@@ -6,7 +6,7 @@
 
 class LifeBonus : public LifeChanger, public ObstacleItem {
 public:
-    LifeBonus(int lchange, qreal xParentCoordinate, qreal yParentCoordinate, QGraphicsItem *parent = 0);
+    LifeBonus(int lchange, qreal xParentCoordinate, qreal yParentCoordinate, QGraphicsItem *parent = nullptr);
 };
 
 #endif // LIFEBONUS_H

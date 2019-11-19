@@ -12,7 +12,7 @@ class Spaceship : public QObject, public QGraphicsPixmapItem {
 public:
     int lifePoints;
 
-    Spaceship(int startingLifePoints, QGraphicsItem *parent = 0);
+    Spaceship(int startingLifePoints, QGraphicsItem *parent = nullptr);
 
     ~ Spaceship();
 
@@ -33,6 +33,8 @@ public:
     void checkBonusCollision();
 
     void setLife(int newLifePoints);
+
+    void reset();
 
 public slots:
     void moveAutoForward();

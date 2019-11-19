@@ -1,9 +1,9 @@
-#include <QDebug>
 #include "Spawner.h"
 #include "ObstacleItem.h"
 #include "Game.h"
 #include "Explosion.h"
 #include "LifeBonus.h"
+#include <QDebug>
 
 extern Game *game; //there
 

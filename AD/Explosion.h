@@ -8,7 +8,7 @@
 class Explosion : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 public:
-    Explosion(qreal xParentCoordinate, qreal yParentCoordinate, QGraphicsItem *parent = 0);
+    Explosion(qreal xParentCoordinate, qreal yParentCoordinate, QGraphicsItem *parent = nullptr);
 
     ~ Explosion();
 

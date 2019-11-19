@@ -5,7 +5,10 @@
 #include <QImage>
 #include <QGraphicsTextItem>
 #include <QFontDatabase>
+#include <stdlib.h>
 #include "Game.h"
+#include "ObstacleItem.h"
+#include "LifeBonus.h"
 
 Game::Game() {
 
@@ -24,13 +27,13 @@ Game::Game() {
 
     init();
 
-    clearOverlay();
+    clearDisplay();
 }
 
 void Game::start() {
 
     // clear the overlay
-    clearOverlay();
+    clearDisplay();
 
     score->setVisible(1);
 
@@ -42,18 +45,12 @@ void Game::start() {
                  (height() / 2) - ship->pixmap().height() / 2);
 
     levelTimer->start(10000);
-    if (levelTimer->remainingTime() == 0) {
-        displayVictory();
-    }
 
     /**
       Create object spawner
         -> init ObstacleObject spawner
      **/
     //spawn enemies
-    spawner = new Spawner();
-    spawnTimer = new QTimer();
-    connect(spawnTimer, SIGNAL(timeout()), spawner, SLOT(spawnBigObstacle()));
     spawnTimer->start(2000);
 
     // game title
@@ -66,24 +63,26 @@ void Game::start() {
 
 
 void Game::displayMenu() {
-    clearOverlay();
+    clearDisplay();
     // game title
     setTitle("Asteroid Destruction");
     title->setVisible(1);
 
     // play button
-    setPlayButton("Play");
     playButton->setVisible(1);
+    playButton->resetHover();
     connect(playButton, SIGNAL(clicked()), this, SLOT(start()));
 
     // exit button
-    setExitButton("Exit");
     exitButton->setVisible(1);
+    exitButton->resetHover();
     connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 void Game::displayDefeat() {
-    clearOverlay();
+    stopSpawner();
+    stopLevel();
+    clearDisplay();
 
     // game title
     setTitle("Game Over");
@@ -94,29 +93,36 @@ void Game::displayDefeat() {
     finalScore->setVisible(1);
 
     // play button
-    setRetryButton("Retry");
     retryButton->setVisible(1);
+    retryButton->resetHover();
     connect(retryButton, SIGNAL(clicked()), this, SLOT(reinit()));
 
     // exit button
-    setExitButton("Exit");
     exitButton->setVisible(1);
+    exitButton->resetHover();
     connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 void Game::displayVictory() {
-
     stopSpawner();
     stopLevel();
+    ship->reset();
     ship->clearFocus();
 
-    clearOverlay();
+    QList <QGraphicsItem *> items = scene->items();
+    for(int i = 0, n = items.size() ; i < n; ++i) {
+        if((typeid(*(items[i])) == typeid(ObstacleItem)) || (typeid(*(items[i])) == typeid(LifeBonus))) {
+            scene->removeItem(items[i]);
+            delete items[i];
+        }
+    }
+
+    clearDisplay();
 
     setTitle("Level Complete");
     title->setVisible(1);
 
     // next button
-    setNextButton("Next level");
     nextButton->setVisible(1);
     connect(nextButton, SIGNAL(clicked()), this, SLOT(start()));
 
@@ -153,15 +159,19 @@ void Game::init() {
     scene->addItem(health);
 
     playButton = new Button("");
+    setPlayButton("Play");
     scene->addItem(playButton);
 
     exitButton = new Button("");
+    setExitButton("Exit");
     scene->addItem(exitButton);
 
     nextButton = new Button("");
+    setNextButton("Next level");
     scene->addItem(nextButton);
 
     retryButton = new Button("");
+    setRetryButton("Retry");
     scene->addItem(retryButton);
 
     ship = new Spaceship(100);
@@ -172,13 +182,21 @@ void Game::init() {
 
     soundBox = new SoundBox();
 
-    currentLevel = 1;
+    spawner = new Spawner();
+    spawnTimer = new QTimer();
+    connect(spawnTimer, SIGNAL(timeout()), spawner, SLOT(spawnBigObstacle()));
+
 
     levelTimer = new QTimer();
     connect(levelTimer, SIGNAL(timeout()), this, SLOT(displayVictory()));
+
+    currentLevel = 1;
 }
 
 void Game::reinit() {
+    stopSpawner();
+    stopLevel();
+    ship->reset();
     ship->setLife(100);
     health->setHealth(ship->getLife());
     score->setScore(0);
@@ -186,7 +204,7 @@ void Game::reinit() {
     start();
 }
 
-void Game::clearOverlay() {
+void Game::clearDisplay() {
     title->setVisible(0);
     levelText->setVisible(0);
     finalScore->setVisible(0);
@@ -202,10 +220,6 @@ void Game::clearOverlay() {
 //------------------------------------------------------
 // GETTERS AND SETTERS
 //------------------------------------------------------
-QGraphicsTextItem *Game::getLevelText() {
-    return levelText;
-}
-
 void Game::setLevelText(QString newLevelText) {
     levelText->setPlainText(newLevelText);
     levelText->setDefaultTextColor(QColor(255, 255, 255, 255));
@@ -223,70 +237,49 @@ void Game::setCurrentLevel(int newCurrentLevel) {
     currentLevel = newCurrentLevel;
 }
 
-QGraphicsTextItem *Game::getTitle() {
-    return title;
-}
-
 void Game::setTitle(QString newTitle) {
     title->setPlainText(newTitle);
     title->setDefaultTextColor(QColor(255, 255, 255, 255));
     title->setFont(QFont("Planet N Compact", 50));
-    int x = width() / 2 - title->boundingRect().width() / 2;
+    int x = int(width() / 2 - title->boundingRect().width() / 2);
     int y = 100;
     title->setPos(x, y);
-}
-
-QGraphicsTextItem *Game::getFinalScore() {
-    return finalScore;
 }
 
 void Game::setFinalScore(QString newFinalScore) {
     finalScore->setPlainText(newFinalScore);
     finalScore->setDefaultTextColor(QColor(255, 255, 255, 255));
     finalScore->setFont(QFont("Planet N Compact", 20));
-    int x = width() / 2 - finalScore->boundingRect().width() / 2;
+    int x = int(width()/2 - finalScore->boundingRect().width()/2);
     int y = 200;
     finalScore->setPos(x, y);
-}
-
-Button *Game::getPlayButton() {
-    return playButton;
 }
 
 void Game::setPlayButton(QString newPlayButtontext) {
     playButton->setText(newPlayButtontext);
     playButton->setPos(50, 370);
-}
-
-Button *Game::getExitButton() {
-    return exitButton;
+    playButton->resetHover();
 }
 
 void Game::setExitButton(QString newExitButtontext) {
     exitButton->setText(newExitButtontext);
     exitButton->setPos(50, 450);
-}
-
-Button *Game::getNextButton() {
-    return nextButton;
+    exitButton->resetHover();
 }
 
 void Game::setNextButton(QString newNextButtonText) {
     nextButton->setText(newNextButtonText);
-    int x = width() / 2 - nextButton->boundingRect().width() / 2;
+    int x = int(width()/2 - nextButton->boundingRect().width()/2);
     int y = 400;
     nextButton->setPos(x, y);
-}
-
-Button *Game::getRetryButton()
-{
-    return retryButton;
+    nextButton->resetHover();
 }
 
 void Game::setRetryButton(QString newRetryButtonText)
 {
     retryButton->setText(newRetryButtonText);
     retryButton->setPos(50, 370);
+    retryButton->resetHover();
 }
 
 Spaceship *Game::getShip() {

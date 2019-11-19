@@ -9,7 +9,7 @@
 class Shot : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 public:
-    Shot(QGraphicsItem *parent = 0);
+    Shot(QGraphicsItem *parent = nullptr);
 
     ~ Shot();
 

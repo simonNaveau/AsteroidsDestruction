@@ -17,8 +17,8 @@ Button::Button(QString name, QGraphicsItem *parent) : QGraphicsRectItem(parent) 
     text = new QGraphicsTextItem(name, this);
     text->setDefaultTextColor(QColor(255, 255, 255, 255));
     text->setFont(QFont("Planet N Compact", 30));
-    int textWidth = text->boundingRect().width();
-    int textHeight = text->boundingRect().height();
+    int textWidth = int(text->boundingRect().width());
+    int textHeight = int(text->boundingRect().height());
     setRect(0, 0, textWidth + 8, textHeight + 8);
     text->setPos(4, 4);
 
@@ -41,8 +41,12 @@ void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event) {
 
 void Button::setText(QString newText) {
     text->setPlainText(newText);
-    int textWidth = text->boundingRect().width();
-    int textHeight = text->boundingRect().height();
+    int textWidth = int(text->boundingRect().width());
+    int textHeight = int(text->boundingRect().height());
     setRect(0, 0, textWidth + 8, textHeight + 8);
     text->setPos(4, 4);
+}
+
+void Button::resetHover() {
+    text->setDefaultTextColor(QColor(255, 255, 255, 255));
 }

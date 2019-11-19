@@ -8,7 +8,7 @@ class Button : public QObject, public QGraphicsRectItem {
     Q_OBJECT
 public:
     // constructor
-    Button(QString name, QGraphicsItem *parent = NULL);
+    Button(QString name, QGraphicsItem *parent = nullptr);
 
     // methods
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -16,6 +16,8 @@ public:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
 
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+
+    void resetHover();
 
     void setText(QString newText);
 

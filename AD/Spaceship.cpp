@@ -81,6 +81,11 @@ void Spaceship::resetSpeed() {
     delete timer;
 }
 
+void Spaceship::reset() {
+    speed = 0;
+    setRotation(0);
+}
+
 /**
   Life changing methods
    -> increase life

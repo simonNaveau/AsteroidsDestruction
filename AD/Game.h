@@ -30,35 +30,21 @@ public:
     void displayDefeat();
 
     // getters and setters
-    QGraphicsTextItem *getLevelText();
-
     void setLevelText(QString newLevelText);
 
     int getCurrentLevel();
 
     void setCurrentLevel(int newCurrentLevel);
 
-    QGraphicsTextItem *getTitle();
-
     void setTitle(QString newTitle);
-
-    QGraphicsTextItem *getFinalScore();
 
     void setFinalScore(QString newFinalScore);
 
-    Button *getPlayButton();
-
     void setPlayButton(QString newPlayButtonText);
-
-    Button *getExitButton();
 
     void setExitButton(QString newExitButtonText);
 
-    Button *getNextButton();
-
     void setNextButton(QString newNextButtonText);
-
-    Button *getRetryButton();
 
     void setRetryButton(QString newRetryButtonText);
 
@@ -82,11 +68,8 @@ public:
 
     Health *getHealth();
 
-public
-    slots:
-            void
-
-    start();
+public slots:
+    void start();
 
     void displayVictory();
 
@@ -123,7 +106,7 @@ private:
     Health *health;
 
     // methods
-    void clearOverlay();
+    void clearDisplay();
 
     void init();
 };
