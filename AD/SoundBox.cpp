@@ -2,7 +2,7 @@
 #include <QMediaPlayer>
 
 
-SoundBox::SoundBox(){
+SoundBox::SoundBox() {
     shotPlayer = new QMediaPlayer;
     shotPlayer->setMedia(QUrl("qrc:/sounds/laser.mp3"));
 
@@ -11,16 +11,16 @@ SoundBox::SoundBox(){
 }
 
 
-void SoundBox::playExplosion(){
-    if(explosionPlayer->state()==QMediaPlayer::PlayingState){
+void SoundBox::playExplosion() {
+    if (explosionPlayer->state() == QMediaPlayer::PlayingState) {
         explosionPlayer->setPosition(0);
     } else {
         explosionPlayer->play();
     }
 }
 
-void SoundBox::playShot(){
-    if(shotPlayer->state()==QMediaPlayer::PlayingState){
+void SoundBox::playShot() {
+    if (shotPlayer->state() == QMediaPlayer::PlayingState) {
         shotPlayer->setPosition(0);
     } else {
         shotPlayer->play();
