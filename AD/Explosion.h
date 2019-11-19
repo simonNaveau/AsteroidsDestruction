@@ -5,14 +5,15 @@
 #include <QObject>
 #include <QTimer>
 
-class Explosion: public QObject, public QGraphicsPixmapItem{
+class Explosion : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 public:
-    Explosion(qreal xParentCoordinate, qreal yParentCoordinate, QGraphicsItem * parent=0);
+    Explosion(qreal xParentCoordinate, qreal yParentCoordinate, QGraphicsItem *parent = 0);
+
     ~ Explosion();
 
 private:
-    QTimer * timer;
+    QTimer *timer;
     int currentImage;
 
 public slots:

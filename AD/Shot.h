@@ -6,20 +6,26 @@
 #include <QMediaPlayer>
 #include <QTimer>
 
-class Shot: public QObject, public QGraphicsPixmapItem{
+class Shot : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 public:
-    Shot(QGraphicsItem * parent=0);
+    Shot(QGraphicsItem *parent = 0);
+
     ~ Shot();
+
     double shotAngle;
 
 //need QObject
-public slots:
-    void move();
+public
+    slots:
+            void
+
+    move();
 
 private:
-    QMediaPlayer * explosionSound;
-    QTimer * timer;
+    QMediaPlayer *explosionSound;
+    QTimer *timer;
+
     void checkObstacleCollision();
 
 };
