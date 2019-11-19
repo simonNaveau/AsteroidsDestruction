@@ -36,7 +36,7 @@ void Spawner::spawnLifeBonus(int lchange, qreal xParentCoordinate, qreal yParent
 }
 
 void Spawner::spawnBigObstacle() {
-    ObstacleItem *obsta = new ObstacleItem(0, NULL, NULL, NULL, NULL);
+    ObstacleItem *obsta = new ObstacleItem(0, 0, 0, 0, 0);
     game->getScene()->addItem(obsta);
 }
 

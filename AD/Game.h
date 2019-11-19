@@ -32,7 +32,7 @@ public:
     // getters and setters
     QGraphicsTextItem *getLevelText();
 
-    void *setLevelText(QString newLevelText);
+    void setLevelText(QString newLevelText);
 
     int getCurrentLevel();
 
@@ -40,35 +40,35 @@ public:
 
     QGraphicsTextItem *getTitle();
 
-    void *setTitle(QString newTitle);
+    void setTitle(QString newTitle);
 
     QGraphicsTextItem *getFinalScore();
 
-    void *setFinalScore(QString newFinalScore);
+    void setFinalScore(QString newFinalScore);
 
     Button *getPlayButton();
 
-    void *setPlayButton(QString newPlayButtonText);
+    void setPlayButton(QString newPlayButtonText);
 
     Button *getExitButton();
 
-    void *setExitButton(QString newExitButtonText);
+    void setExitButton(QString newExitButtonText);
 
     Button *getNextButton();
 
-    void *setNextButton(QString newNextButtonText);
+    void setNextButton(QString newNextButtonText);
 
     Button *getRetryButton();
 
-    void *setRetryButton(QString newRetryButtonText);
+    void setRetryButton(QString newRetryButtonText);
 
     QTimer *getSpawnTimer();
 
-    void *setSpawnTimer(int interval);
+    void setSpawnTimer(int interval);
 
     QTimer *getLevelTimer();
 
-    void *setLevelTimer(int interval);
+    void setLevelTimer(int interval);
 
     Spaceship *getShip();
 

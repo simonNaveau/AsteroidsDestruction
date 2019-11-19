@@ -17,11 +17,8 @@ public:
 
     void showExplosion(qreal xParentCoordinate, qreal yParentCoordinate);
 
-public
-    slots:
-            void
-
-    spawnBigObstacle();
+public slots:
+    void spawnBigObstacle();
 
 };
 

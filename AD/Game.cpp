@@ -206,7 +206,7 @@ QGraphicsTextItem *Game::getLevelText() {
     return levelText;
 }
 
-void *Game::setLevelText(QString newLevelText) {
+void Game::setLevelText(QString newLevelText) {
     levelText->setPlainText(newLevelText);
     levelText->setDefaultTextColor(QColor(255, 255, 255, 255));
     levelText->setFont(QFont("Planet N Compact", 16));
@@ -227,7 +227,7 @@ QGraphicsTextItem *Game::getTitle() {
     return title;
 }
 
-void *Game::setTitle(QString newTitle) {
+void Game::setTitle(QString newTitle) {
     title->setPlainText(newTitle);
     title->setDefaultTextColor(QColor(255, 255, 255, 255));
     title->setFont(QFont("Planet N Compact", 50));
@@ -240,7 +240,7 @@ QGraphicsTextItem *Game::getFinalScore() {
     return finalScore;
 }
 
-void *Game::setFinalScore(QString newFinalScore) {
+void Game::setFinalScore(QString newFinalScore) {
     finalScore->setPlainText(newFinalScore);
     finalScore->setDefaultTextColor(QColor(255, 255, 255, 255));
     finalScore->setFont(QFont("Planet N Compact", 20));
@@ -253,7 +253,7 @@ Button *Game::getPlayButton() {
     return playButton;
 }
 
-void *Game::setPlayButton(QString newPlayButtontext) {
+void Game::setPlayButton(QString newPlayButtontext) {
     playButton->setText(newPlayButtontext);
     playButton->setPos(50, 370);
 }
@@ -262,7 +262,7 @@ Button *Game::getExitButton() {
     return exitButton;
 }
 
-void *Game::setExitButton(QString newExitButtontext) {
+void Game::setExitButton(QString newExitButtontext) {
     exitButton->setText(newExitButtontext);
     exitButton->setPos(50, 450);
 }
@@ -271,7 +271,7 @@ Button *Game::getNextButton() {
     return nextButton;
 }
 
-void *Game::setNextButton(QString newNextButtonText) {
+void Game::setNextButton(QString newNextButtonText) {
     nextButton->setText(newNextButtonText);
     int x = width() / 2 - nextButton->boundingRect().width() / 2;
     int y = 400;
@@ -283,7 +283,7 @@ Button *Game::getRetryButton()
     return retryButton;
 }
 
-void *Game::setRetryButton(QString newRetryButtonText)
+void Game::setRetryButton(QString newRetryButtonText)
 {
     retryButton->setText(newRetryButtonText);
     retryButton->setPos(50, 370);
