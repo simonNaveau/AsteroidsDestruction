@@ -3,7 +3,6 @@
 #include "Game.h"
 #include "Explosion.h"
 #include "LifeBonus.h"
-#include <QDebug>
 
 extern Game *game; //there
 
