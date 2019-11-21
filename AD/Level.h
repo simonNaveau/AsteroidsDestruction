@@ -7,27 +7,27 @@ public:
     Level();
 
     // methods
-    void setSucessTime(int);
+    void setLevelTime(int newTime);
 
-    void setAsteroDmg(int);
+    void setAsteroDmg(int newAsteroDmg); // not used
 
-    void setAsteroSpeed(int);
+    void setAsteroSpeed(int newAsteroSpeed); // not used
 
-    void setAsteroSpawnFreq(int);
+    void setAsteroSpawnFreq(int newAsteroSpawnFreq);
 
-    int getSucessTime();
+    int getLevelTime();
 
-    int getAsteroDmg();
+    int getAsteroDmg(); // not used
 
-    int getAsteroSpeed();
+    int getAsteroSpeed(); // not used
 
     int getAsteroSpawnFreq();
 
 private:
     // attributes
-    int successTime;
-    int asteroDmg;
-    int asteroSpeed;
+    int levelTime;
+    int asteroDmg; // not used
+    int asteroSpeed; // not used
     int asteroSpawnFreq;
 };
 

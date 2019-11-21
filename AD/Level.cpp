@@ -1,14 +1,14 @@
 #include "Level.h"
 
 Level::Level() {
-    successTime = 0;
+    levelTime = 0;
     asteroDmg = 0;
     asteroSpeed = 0;
     asteroSpawnFreq = 0;
 }
 
-void Level::setSucessTime(int time) {
-    successTime = time;
+void Level::setLevelTime(int time) {
+    levelTime = time;
 }
 
 void Level::setAsteroDmg(int dmg) {
@@ -23,8 +23,8 @@ void Level::setAsteroSpawnFreq(int freq) {
     asteroSpawnFreq = freq;
 }
 
-int Level::getSucessTime() {
-    return successTime;
+int Level::getLevelTime() {
+    return levelTime;
 }
 
 int Level::getAsteroDmg() {
