@@ -11,7 +11,7 @@
 #include "LifeBonus.h"
 
 Game::Game() {
-
+    setWindowTitle("AsteroidsDestruction");
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(1280, 720); //Size of the mainWindow
