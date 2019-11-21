@@ -44,7 +44,7 @@ void Game::start() {
     ship->setPos((width() / 2) - ship->pixmap().width() / 2,
                  (height() / 2) - ship->pixmap().height() / 2);
 
-    levelTimer->start(10000);
+    levelTimer->start(1000000000000000000);
 
     /**
       Create object spawner
@@ -115,6 +115,7 @@ void Game::displayVictory() {
             scene->removeItem(items[i]);
             delete items[i];
         }
+
     }
 
     clearDisplay();

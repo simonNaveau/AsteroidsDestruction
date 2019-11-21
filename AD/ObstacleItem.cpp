@@ -7,6 +7,7 @@
 #include <QtMath>
 #include "ObstacleItem.h"
 #include "Game.h"
+#include "LifeBonus.h"
 
 
 extern Game *game; //there
@@ -147,6 +148,10 @@ void ObstacleItem::checkSpaceshipCollision() {
                 QList < QGraphicsItem * > items = game->items();
                 for (int i = 0, n = items.size(); i < n; ++i) {
                     if (typeid(*(items[i])) == typeid(ObstacleItem) && items[i] != this) {
+                        scene()->removeItem(items[i]);
+                        delete items[i];
+                    }
+                    if(typeid(*(items[i])) == typeid(LifeBonus)){
                         scene()->removeItem(items[i]);
                         delete items[i];
                     }
