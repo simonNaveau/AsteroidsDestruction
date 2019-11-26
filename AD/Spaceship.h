@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QMediaPlayer>
 #include <QTimer>
+#include "LifeChanger.h"
 
 class Spaceship : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
@@ -35,6 +36,8 @@ public:
     void setLife(int newLifePoints);
 
     void reset();
+
+    int operator+(LifeChanger *changer);
 
 public slots:
     void moveAutoForward();

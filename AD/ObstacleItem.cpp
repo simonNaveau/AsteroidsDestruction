@@ -7,6 +7,7 @@
 #include <QtMath>
 #include "ObstacleItem.h"
 #include "Game.h"
+#include "LifeBonus.h"
 
 
 extern Game *game; //there
@@ -150,7 +151,12 @@ void ObstacleItem::checkSpaceshipCollision() {
                         scene()->removeItem(items[i]);
                         delete items[i];
                     }
+                    if(typeid(*(items[i])) == typeid(LifeBonus)){
+                        scene()->removeItem(items[i]);
+                        delete items[i];
+                    }
                 }
+
                 game->stopSpawner();
                 game->getShip()->clearFocus();
                 game->getShip()->setVisible(0);

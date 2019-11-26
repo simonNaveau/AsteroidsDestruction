@@ -11,7 +11,7 @@
 #include "LifeBonus.h"
 
 Game::Game() {
-
+    setWindowTitle("AsteroidsDestruction");
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(1280, 720); //Size of the mainWindow
@@ -114,7 +114,7 @@ void Game::displayDefeat() {
 }
 
 void Game::displayLevelSucess() {
-    if(levels.size() == currentLevel) {
+    if(int(levels.size()) == currentLevel) {
         displayVictory();
     } else {
         stopSpawner();
@@ -259,7 +259,7 @@ void Game::init() {
 
     int freq = 5000;
     int levelTime = 30000;
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 10; i++) {
         Level *lv = new Level();
 
         lv->setAsteroSpawnFreq(freq);
