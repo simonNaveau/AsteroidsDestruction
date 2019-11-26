@@ -86,6 +86,10 @@ void Spaceship::reset() {
     setRotation(0);
 }
 
+int Spaceship::operator+(LifeChanger *changer){
+   return this->getLife()+changer->lifeChange;
+}
+
 /**
   Life changing methods
    -> increase life
@@ -114,7 +118,8 @@ void Spaceship::checkBonusCollision() {
     QList < QGraphicsItem * > colliding_items = collidingItems();
     for (int i = 0, n = colliding_items.size(); i < n; ++i) {
         if (typeid(*(colliding_items[i])) == typeid(LifeBonus)) {
-            qgraphicsitem_cast<LifeBonus *>(colliding_items[i])->operator+(this);
+            this->setLife(*this+qgraphicsitem_cast<LifeBonus *>(colliding_items[i]));
+            game->getHealth()->setHealth(this->getLife());
             scene()->removeItem(colliding_items[i]);
             delete colliding_items[i];
             return;

@@ -7,15 +7,3 @@ extern Game *game; //there
 LifeChanger::LifeChanger(int lifeChange) {
     this->lifeChange = lifeChange;
 }
-
-void LifeChanger::operator-(Spaceship *ship) {
-    if (ship->getLife() - this->lifeChange >= 0) {
-        ship->lifePoints = ship->lifePoints - this->lifeChange;
-        game->getHealth()->setHealth(ship->getLife());
-    }
-}
-
-void LifeChanger::operator+(Spaceship *ship) {
-    ship->lifePoints = ship->lifePoints + this->lifeChange;
-    game->getHealth()->setHealth(ship->getLife());
-}
