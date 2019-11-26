@@ -2,7 +2,6 @@
 #include <QGraphicsView>
 #include <QTimer>
 #include <QMediaPlayer>
-#include <QImage>
 #include <QGraphicsTextItem>
 #include <QFontDatabase>
 #include <stdlib.h>
@@ -37,7 +36,7 @@ void Game::start() {
 
     loadingTimer->start(60);
 
-    if(tmp == 50) {
+    if (tmp == 50) {
         loadingTimer->stop();
 
         loadingText->setVisible(0);
@@ -51,15 +50,17 @@ void Game::start() {
         ship->setPos((width() / 2) - ship->pixmap().width() / 2,
                      (height() / 2) - ship->pixmap().height() / 2);
 
-        levelTimer->start(levels[currentLevel-1]->getLevelTime());
+        levelTimer->start(levels[currentLevel - 1]->getLevelTime());
         refreshTimer->start(10);
+
+        ship->setPixmap(QPixmap(shipPath));
 
         /**
           Create object spawner
             -> init ObstacleObject spawner
          **/
         //spawn enemies
-        spawnTimer->start(levels[currentLevel-1]->getAsteroSpawnFreq());
+        spawnTimer->start(levels[currentLevel - 1]->getAsteroSpawnFreq());
 
         setLevelText("Level " + QString::number(getCurrentLevel()));
         setTimeLeftText("Time left " + QString::number(levelTimer->interval()));
@@ -81,12 +82,56 @@ void Game::displayMenu() {
     // play button
     playButton->setVisible(1);
     playButton->resetHover();
-    connect(playButton, SIGNAL(clicked()), this, SLOT(start()));
+    connect(playButton, SIGNAL(clicked()), this, SLOT(displaySelect()));
 
     // exit button
     exitButton->setVisible(1);
     exitButton->resetHover();
     connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
+}
+
+void Game::displaySelect() {
+    clearDisplay();
+    // game title
+    setTitle("Choose your ship");
+    title->setVisible(1);
+
+    // select button
+    selectButton->setVisible(1);
+    selectButton->resetHover();
+    connect(selectButton, SIGNAL(clicked()), this, SLOT(start()));
+
+    // next button
+    nextButton->setVisible(1);
+    nextButton->resetHover();
+    connect(nextButton, SIGNAL(clicked()), this, SLOT(selectNext()));
+
+    // prev button
+    prevButton->setVisible(1);
+    prevButton->resetHover();
+    connect(prevButton, SIGNAL(clicked()), this, SLOT(selectPrevious()));
+
+    selectedShip->setVisible(1);
+}
+
+void Game::selectNext() {
+    if (selectedNumber < 3) {
+        selectedNumber++;
+    } else {
+        selectedNumber = 0;
+    }
+    shipPath = QString(":/images/Ships/ship%1.png").arg(selectedNumber);
+    setSelectedShip(shipPath);
+}
+
+void Game::selectPrevious() {
+    if (selectedNumber > 0) {
+        selectedNumber--;
+    } else {
+        selectedNumber = 3;
+    }
+    shipPath = QString(":/images/Ships/ship%1.png").arg(selectedNumber);
+    setSelectedShip(shipPath);
 }
 
 void Game::displayDefeat() {
@@ -114,7 +159,7 @@ void Game::displayDefeat() {
 }
 
 void Game::displayLevelSucess() {
-    if(int(levels.size()) == currentLevel) {
+    if (int(levels.size()) == currentLevel) {
         displayVictory();
     } else {
         stopSpawner();
@@ -122,9 +167,9 @@ void Game::displayLevelSucess() {
         ship->reset();
         ship->clearFocus();
 
-        QList <QGraphicsItem *> items = scene->items();
-        for(int i = 0, n = items.size() ; i < n; ++i) {
-            if((typeid(*(items[i])) == typeid(ObstacleItem)) || (typeid(*(items[i])) == typeid(LifeBonus))) {
+        QList < QGraphicsItem * > items = scene->items();
+        for (int i = 0, n = items.size(); i < n; ++i) {
+            if ((typeid(*(items[i])) == typeid(ObstacleItem)) || (typeid(*(items[i])) == typeid(LifeBonus))) {
                 scene->removeItem(items[i]);
                 delete items[i];
             }
@@ -136,8 +181,8 @@ void Game::displayLevelSucess() {
         title->setVisible(1);
 
         // next button
-        nextButton->setVisible(1);
-        connect(nextButton, SIGNAL(clicked()), this, SLOT(start()));
+        nextLevelButton->setVisible(1);
+        connect(nextLevelButton, SIGNAL(clicked()), this, SLOT(start()));
 
         currentLevel += 1;
     }
@@ -149,9 +194,9 @@ void Game::displayVictory() {
     ship->reset();
     ship->clearFocus();
 
-    QList <QGraphicsItem *> items = scene->items();
-    for(int i = 0, n = items.size() ; i < n; ++i) {
-        if((typeid(*(items[i])) == typeid(ObstacleItem)) || (typeid(*(items[i])) == typeid(LifeBonus))) {
+    QList < QGraphicsItem * > items = scene->items();
+    for (int i = 0, n = items.size(); i < n; ++i) {
+        if ((typeid(*(items[i])) == typeid(ObstacleItem)) || (typeid(*(items[i])) == typeid(LifeBonus))) {
             scene->removeItem(items[i]);
             delete items[i];
         }
@@ -220,17 +265,36 @@ void Game::init() {
     setExitButton("Exit");
     scene->addItem(exitButton);
 
-    nextButton = new Button("");
-    setNextButton("Next level");
-    scene->addItem(nextButton);
+    nextLevelButton = new Button("");
+    setNextLevelButton("Next level");
+    scene->addItem(nextLevelButton);
 
     retryButton = new Button("");
     setRetryButton("Retry");
     scene->addItem(retryButton);
 
+    selectButton = new Button("");
+    setSelectButton("Select");
+    scene->addItem(selectButton);
+
+    nextButton = new Button("");
+    setNextButton(">");
+    scene->addItem(nextButton);
+
+    prevButton = new Button("");
+    setPrevButton("<");
+    scene->addItem(prevButton);
+
+    selectedNumber = 0;
+    shipPath = QString(":/images/Ships/ship%1.png").arg(selectedNumber);
+
+    selectedShip = new QGraphicsPixmapItem();
+    setSelectedShip(shipPath);
+    scene->addItem(selectedShip);
+
     ship = new Spaceship(1000);
     health->setHealth(ship->getLife());
-    ship->setPixmap(QPixmap(":/images/ship.png"));
+    ship->setPixmap(QPixmap(shipPath));
     ship->setFlag(QGraphicsItem::ItemIsFocusable);  //make focusable
     scene->addItem(ship);
 
@@ -283,31 +347,29 @@ void Game::reinit() {
     start();
 }
 
-void Game::refresh()
-{
+void Game::refresh() {
     long milli = levelTimer->remainingTime();
     long min = milli / 60000;
     milli = milli - 60000 * min;
     long sec = milli / 1000;
     milli = milli - 1000 * sec;
-    if(sec >= 10) {
+    if (sec >= 10) {
         setTimeLeftText("Time left " + QString::number(min) + ":" + QString::number(sec));
     } else {
         setTimeLeftText("Time left " + QString::number(min) + ":0" + QString::number(sec));
     }
 }
 
-void Game::refreshLoading()
-{
+void Game::refreshLoading() {
     tmp = tmp + 1;
-    if(tmp <= 16) {
-        setLoadingText("3",fontSize1);
+    if (tmp <= 16) {
+        setLoadingText("3", fontSize1);
         fontSize1 = fontSize1 - 5;
-    } else if(tmp <= 33) {
-        setLoadingText("2",fontSize2);
+    } else if (tmp <= 33) {
+        setLoadingText("2", fontSize2);
         fontSize2 = fontSize2 - 5;
-    } else if(tmp <= 50) {
-        setLoadingText("1",fontSize3);
+    } else if (tmp <= 50) {
+        setLoadingText("1", fontSize3);
         fontSize3 = fontSize3 - 5;
     }
     loadingText->setVisible(1);
@@ -315,14 +377,18 @@ void Game::refreshLoading()
 }
 
 void Game::clearDisplay() {
+    selectedShip->setVisible(0);
     title->setVisible(0);
     levelText->setVisible(0);
     timeLeftText->setVisible(0);
     finalScore->setVisible(0);
     playButton->setVisible(0);
     exitButton->setVisible(0);
-    nextButton->setVisible(0);
+    nextLevelButton->setVisible(0);
     retryButton->setVisible(0);
+    selectButton->setVisible(0);
+    nextButton->setVisible(0);
+    prevButton->setVisible(0);
     score->setVisible(0);
     health->setVisible(0);
     ship->setVisible(0);
@@ -340,8 +406,7 @@ void Game::setLevelText(QString newLevelText) {
     levelText->setPos(x, y);
 }
 
-void Game::setTimeLeftText(QString newTimeLeftText)
-{
+void Game::setTimeLeftText(QString newTimeLeftText) {
     timeLeftText->setPlainText(newTimeLeftText);
     timeLeftText->setDefaultTextColor(QColor(255, 255, 255, 255));
     timeLeftText->setFont(QFont("Planet N Compact", 16));
@@ -350,8 +415,7 @@ void Game::setTimeLeftText(QString newTimeLeftText)
     timeLeftText->setPos(x, y);
 }
 
-void Game::setLoadingText(QString newLoadingText, int newSize)
-{
+void Game::setLoadingText(QString newLoadingText, int newSize) {
     loadingText->setPlainText(newLoadingText);
     loadingText->setDefaultTextColor(QColor(255, 255, 255, 255));
     loadingText->setFont(QFont("Planet N Compact", newSize));
@@ -381,7 +445,7 @@ void Game::setFinalScore(QString newFinalScore) {
     finalScore->setPlainText(newFinalScore);
     finalScore->setDefaultTextColor(QColor(255, 255, 255, 255));
     finalScore->setFont(QFont("Planet N Compact", 20));
-    int x = int(width()/2 - finalScore->boundingRect().width()/2);
+    int x = int(width() / 2 - finalScore->boundingRect().width() / 2);
     int y = 200;
     finalScore->setPos(x, y);
 }
@@ -398,19 +462,49 @@ void Game::setExitButton(QString newExitButtontext) {
     exitButton->resetHover();
 }
 
+void Game::setNextLevelButton(QString newNextLevelButtonText) {
+    nextLevelButton->setText(newNextLevelButtonText);
+    int x = int(width() / 2 - nextLevelButton->boundingRect().width() / 2);
+    int y = 400;
+    nextLevelButton->setPos(x, y);
+    nextLevelButton->resetHover();
+}
+
+void Game::setRetryButton(QString newRetryButtonText) {
+    retryButton->setText(newRetryButtonText);
+    retryButton->setPos(50, 370);
+    retryButton->resetHover();
+}
+
+void Game::setSelectButton(QString newSelectButtonText) {
+    selectButton->setText(newSelectButtonText);
+    int x = int(width() / 2 - selectButton->boundingRect().width() / 2);
+    int y = 600;
+    selectButton->setPos(x, y);
+    selectButton->resetHover();
+}
+
 void Game::setNextButton(QString newNextButtonText) {
     nextButton->setText(newNextButtonText);
-    int x = int(width()/2 - nextButton->boundingRect().width()/2);
-    int y = 400;
+    int x = int(width() - nextButton->boundingRect().width() - 250);
+    int y = 300;
     nextButton->setPos(x, y);
     nextButton->resetHover();
 }
 
-void Game::setRetryButton(QString newRetryButtonText)
-{
-    retryButton->setText(newRetryButtonText);
-    retryButton->setPos(50, 370);
-    retryButton->resetHover();
+void Game::setPrevButton(QString newPrevButtonText) {
+    prevButton->setText(newPrevButtonText);
+    int x = 250;
+    int y = 300;
+    prevButton->setPos(x, y);
+    prevButton->resetHover();
+}
+
+void Game::setSelectedShip(QString newSelectShip) {
+    selectedShip->setPixmap(QPixmap(newSelectShip));
+    int x = int(width() / 2 - selectedShip->boundingRect().width() / 2);
+    int y = 300;
+    selectedShip->setPos(x, y);
 }
 
 Spaceship *Game::getShip() {

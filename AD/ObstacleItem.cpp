@@ -156,7 +156,7 @@ void ObstacleItem::checkSpaceshipCollision() {
                         scene()->removeItem(items[i]);
                         delete items[i];
                     }
-                    if(typeid(*(items[i])) == typeid(LifeBonus)){
+                    if (typeid(*(items[i])) == typeid(LifeBonus)) {
                         scene()->removeItem(items[i]);
                         delete items[i];
                     }
