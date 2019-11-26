@@ -156,6 +156,7 @@ void ObstacleItem::checkSpaceshipCollision() {
                         delete items[i];
                     }
                 }
+
                 game->stopSpawner();
                 game->getShip()->clearFocus();
                 game->getShip()->setVisible(0);

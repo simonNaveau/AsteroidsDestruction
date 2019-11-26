@@ -32,6 +32,10 @@ public:
     // getters and setters
     void setLevelText(QString newLevelText);
 
+    void setTimeLeftText(QString newTimeLeftText);
+
+    void setLoadingText(QString newLoadingText, int newSize);
+
     int getCurrentLevel();
 
     void setCurrentLevel(int newCurrentLevel);
@@ -71,21 +75,32 @@ public:
 public slots:
     void start();
 
+    void displayLevelSucess();
+
+private slots :
+    void reinit();
+
+    void refresh();
+
+    void refreshLoading();
+
     void displayVictory();
-
-private
-    slots :
-            void
-
-    reinit();
 
 private:
     // attributes
     int currentLevel;
 
+    int fontSize1;
+    int fontSize2;
+    int fontSize3;
+
+    int tmp;
+
     QGraphicsTextItem *levelText;
     QGraphicsTextItem *title;
     QGraphicsTextItem *finalScore;
+    QGraphicsTextItem *timeLeftText;
+    QGraphicsTextItem *loadingText;
 
     Button *playButton;
     Button *exitButton;
@@ -94,6 +109,8 @@ private:
 
     QTimer *spawnTimer;
     QTimer *levelTimer;
+    QTimer *refreshTimer;
+    QTimer *loadingTimer;
 
     Spaceship *ship;
 
@@ -104,6 +121,8 @@ private:
     Score *score;
 
     Health *health;
+
+    std::deque < Level * > levels;
 
     // methods
     void clearDisplay();

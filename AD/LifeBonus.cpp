@@ -5,9 +5,9 @@
 extern Game *game; //there
 
 LifeBonus::LifeBonus(int lchange, qreal xParentCoordinate, qreal yParentCoordinate, QGraphicsItem *parent)
-        : ObstacleItem(0, 0, 0, xParentCoordinate, yParentCoordinate, parent), LifeChanger(lchange)  {
+         : ObstacleItem(0, 0, 0, xParentCoordinate, yParentCoordinate, parent), LifeChanger(lchange)  {
     animationTimer = new QTimer();
-    setPixmap(QPixmap(":/images/Bonus/bonus0.png"));
+    setPixmap(QPixmap(":/images/bonus0.png"));
     animationCount = 0;
     setPos(xParentCoordinate, yParentCoordinate);
     getTimer()->stop();
@@ -25,5 +25,3 @@ void LifeBonus::animation(){
     QString image = QString(":/images/Bonus/bonus%1.png").arg(animationCount);
     setPixmap(QPixmap(image));
 }
-
-
