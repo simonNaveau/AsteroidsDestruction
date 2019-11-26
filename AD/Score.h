@@ -18,7 +18,6 @@ public:
 
 private:
     int score;
-
 };
 
 #endif // SCORE_H

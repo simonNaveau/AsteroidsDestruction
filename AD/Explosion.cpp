@@ -1,7 +1,8 @@
 #include <QTimer>
 #include "Explosion.h"
 
-Explosion::Explosion(qreal xParentCoordinate, qreal yParentCoordinate, QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
+Explosion::Explosion(qreal xParentCoordinate, qreal yParentCoordinate, QGraphicsItem *parent) : QGraphicsPixmapItem(
+        parent) {
     currentImage = 1;
     setPixmap(QPixmap(":/images/Explosions/expl1.png"));
     setPos(xParentCoordinate, yParentCoordinate);

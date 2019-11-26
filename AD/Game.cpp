@@ -2,11 +2,9 @@
 #include <QGraphicsView>
 #include <QTimer>
 #include <QMediaPlayer>
-#include <QImage>
 #include <QGraphicsTextItem>
 #include <QFontDatabase>
 #include <stdlib.h>
-#include <QImage>
 #include "Game.h"
 #include "ObstacleItem.h"
 #include "LifeBonus.h"
@@ -38,7 +36,7 @@ void Game::start() {
 
     loadingTimer->start(60);
 
-    if(tmp == 50) {
+    if (tmp == 50) {
         loadingTimer->stop();
 
         loadingText->setVisible(0);
@@ -52,7 +50,7 @@ void Game::start() {
         ship->setPos((width() / 2) - ship->pixmap().width() / 2,
                      (height() / 2) - ship->pixmap().height() / 2);
 
-        levelTimer->start(levels[currentLevel-1]->getLevelTime());
+        levelTimer->start(levels[currentLevel - 1]->getLevelTime());
         refreshTimer->start(10);
 
         ship->setPixmap(QPixmap(shipPath));
@@ -62,7 +60,7 @@ void Game::start() {
             -> init ObstacleObject spawner
          **/
         //spawn enemies
-        spawnTimer->start(levels[currentLevel-1]->getAsteroSpawnFreq());
+        spawnTimer->start(levels[currentLevel - 1]->getAsteroSpawnFreq());
 
         setLevelText("Level " + QString::number(getCurrentLevel()));
         setTimeLeftText("Time left " + QString::number(levelTimer->interval()));
@@ -117,7 +115,7 @@ void Game::displaySelect() {
 }
 
 void Game::selectNext() {
-    if(selectedNumber<3) {
+    if (selectedNumber < 3) {
         selectedNumber++;
     } else {
         selectedNumber = 0;
@@ -127,7 +125,7 @@ void Game::selectNext() {
 }
 
 void Game::selectPrevious() {
-    if(selectedNumber>0) {
+    if (selectedNumber > 0) {
         selectedNumber--;
     } else {
         selectedNumber = 3;
@@ -161,7 +159,7 @@ void Game::displayDefeat() {
 }
 
 void Game::displayLevelSucess() {
-    if(int(levels.size()) == currentLevel) {
+    if (int(levels.size()) == currentLevel) {
         displayVictory();
     } else {
         stopSpawner();
@@ -169,9 +167,9 @@ void Game::displayLevelSucess() {
         ship->reset();
         ship->clearFocus();
 
-        QList <QGraphicsItem *> items = scene->items();
-        for(int i = 0, n = items.size() ; i < n; ++i) {
-            if((typeid(*(items[i])) == typeid(ObstacleItem)) || (typeid(*(items[i])) == typeid(LifeBonus))) {
+        QList < QGraphicsItem * > items = scene->items();
+        for (int i = 0, n = items.size(); i < n; ++i) {
+            if ((typeid(*(items[i])) == typeid(ObstacleItem)) || (typeid(*(items[i])) == typeid(LifeBonus))) {
                 scene->removeItem(items[i]);
                 delete items[i];
             }
@@ -196,9 +194,9 @@ void Game::displayVictory() {
     ship->reset();
     ship->clearFocus();
 
-    QList <QGraphicsItem *> items = scene->items();
-    for(int i = 0, n = items.size() ; i < n; ++i) {
-        if((typeid(*(items[i])) == typeid(ObstacleItem)) || (typeid(*(items[i])) == typeid(LifeBonus))) {
+    QList < QGraphicsItem * > items = scene->items();
+    for (int i = 0, n = items.size(); i < n; ++i) {
+        if ((typeid(*(items[i])) == typeid(ObstacleItem)) || (typeid(*(items[i])) == typeid(LifeBonus))) {
             scene->removeItem(items[i]);
             delete items[i];
         }
@@ -349,31 +347,29 @@ void Game::reinit() {
     start();
 }
 
-void Game::refresh()
-{
+void Game::refresh() {
     long milli = levelTimer->remainingTime();
     long min = milli / 60000;
     milli = milli - 60000 * min;
     long sec = milli / 1000;
     milli = milli - 1000 * sec;
-    if(sec >= 10) {
+    if (sec >= 10) {
         setTimeLeftText("Time left " + QString::number(min) + ":" + QString::number(sec));
     } else {
         setTimeLeftText("Time left " + QString::number(min) + ":0" + QString::number(sec));
     }
 }
 
-void Game::refreshLoading()
-{
+void Game::refreshLoading() {
     tmp = tmp + 1;
-    if(tmp <= 16) {
-        setLoadingText("3",fontSize1);
+    if (tmp <= 16) {
+        setLoadingText("3", fontSize1);
         fontSize1 = fontSize1 - 5;
-    } else if(tmp <= 33) {
-        setLoadingText("2",fontSize2);
+    } else if (tmp <= 33) {
+        setLoadingText("2", fontSize2);
         fontSize2 = fontSize2 - 5;
-    } else if(tmp <= 50) {
-        setLoadingText("1",fontSize3);
+    } else if (tmp <= 50) {
+        setLoadingText("1", fontSize3);
         fontSize3 = fontSize3 - 5;
     }
     loadingText->setVisible(1);
@@ -410,8 +406,7 @@ void Game::setLevelText(QString newLevelText) {
     levelText->setPos(x, y);
 }
 
-void Game::setTimeLeftText(QString newTimeLeftText)
-{
+void Game::setTimeLeftText(QString newTimeLeftText) {
     timeLeftText->setPlainText(newTimeLeftText);
     timeLeftText->setDefaultTextColor(QColor(255, 255, 255, 255));
     timeLeftText->setFont(QFont("Planet N Compact", 16));
@@ -420,8 +415,7 @@ void Game::setTimeLeftText(QString newTimeLeftText)
     timeLeftText->setPos(x, y);
 }
 
-void Game::setLoadingText(QString newLoadingText, int newSize)
-{
+void Game::setLoadingText(QString newLoadingText, int newSize) {
     loadingText->setPlainText(newLoadingText);
     loadingText->setDefaultTextColor(QColor(255, 255, 255, 255));
     loadingText->setFont(QFont("Planet N Compact", newSize));
@@ -451,7 +445,7 @@ void Game::setFinalScore(QString newFinalScore) {
     finalScore->setPlainText(newFinalScore);
     finalScore->setDefaultTextColor(QColor(255, 255, 255, 255));
     finalScore->setFont(QFont("Planet N Compact", 20));
-    int x = int(width()/2 - finalScore->boundingRect().width()/2);
+    int x = int(width() / 2 - finalScore->boundingRect().width() / 2);
     int y = 200;
     finalScore->setPos(x, y);
 }
@@ -470,13 +464,13 @@ void Game::setExitButton(QString newExitButtontext) {
 
 void Game::setNextLevelButton(QString newNextLevelButtonText) {
     nextLevelButton->setText(newNextLevelButtonText);
-    int x = int(width()/2 - nextLevelButton->boundingRect().width()/2);
+    int x = int(width() / 2 - nextLevelButton->boundingRect().width() / 2);
     int y = 400;
     nextLevelButton->setPos(x, y);
     nextLevelButton->resetHover();
 }
 
-void Game::setRetryButton(QString newRetryButtonText){
+void Game::setRetryButton(QString newRetryButtonText) {
     retryButton->setText(newRetryButtonText);
     retryButton->setPos(50, 370);
     retryButton->resetHover();
@@ -484,7 +478,7 @@ void Game::setRetryButton(QString newRetryButtonText){
 
 void Game::setSelectButton(QString newSelectButtonText) {
     selectButton->setText(newSelectButtonText);
-    int x = int(width()/2 - selectButton->boundingRect().width()/2);
+    int x = int(width() / 2 - selectButton->boundingRect().width() / 2);
     int y = 600;
     selectButton->setPos(x, y);
     selectButton->resetHover();
@@ -508,7 +502,7 @@ void Game::setPrevButton(QString newPrevButtonText) {
 
 void Game::setSelectedShip(QString newSelectShip) {
     selectedShip->setPixmap(QPixmap(newSelectShip));
-    int x = int(width()/2 - selectedShip->boundingRect().width()/2);
+    int x = int(width() / 2 - selectedShip->boundingRect().width() / 2);
     int y = 300;
     selectedShip->setPos(x, y);
 }

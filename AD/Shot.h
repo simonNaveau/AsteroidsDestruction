@@ -16,11 +16,8 @@ public:
     double shotAngle;
 
 //need QObject
-public
-    slots:
-            void
-
-    move();
+public slots:
+   void move();
 
 private:
     QMediaPlayer *explosionSound;

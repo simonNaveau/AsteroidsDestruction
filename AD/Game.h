@@ -144,7 +144,7 @@ private:
 
     Health *health;
 
-    std::deque < Level * > levels;
+    std::deque<Level *> levels;
 
     // methods
     void clearDisplay();
