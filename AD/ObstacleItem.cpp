@@ -14,7 +14,12 @@ extern Game *game; //there
 
 ObstacleItem::ObstacleItem(int size, double angle, double speed, qreal xParentCoordinate, qreal yParentCoordinate,
                            QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent) {
-    this->size = size; //catch exception size != 0,1,2
+    if(size > 2 || size < 0){
+        throw(size);
+    } else {
+        this->size = size;
+    }
+
 
     if (size == 0) { //Create a big obstacle
         int randPixMap = rand() % 3;
