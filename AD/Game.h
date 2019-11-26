@@ -48,9 +48,17 @@ public:
 
     void setExitButton(QString newExitButtonText);
 
-    void setNextButton(QString newNextButtonText);
+    void setNextLevelButton(QString newNextLevelButtonText);
 
     void setRetryButton(QString newRetryButtonText);
+
+    void setSelectButton(QString newSelectButtonText);
+
+    void setNextButton(QString newNextButtonText);
+
+    void setPrevButton(QString newPrevButtonText);
+
+    void setSelectedShip(QString newSelectShip);
 
     QTimer *getSpawnTimer();
 
@@ -75,8 +83,6 @@ public:
 public slots:
     void start();
 
-    void displayLevelSucess();
-
 private slots :
     void reinit();
 
@@ -85,6 +91,14 @@ private slots :
     void refreshLoading();
 
     void displayVictory();
+
+    void displayLevelSucess();
+
+    void displaySelect();
+
+    void selectNext();
+
+    void selectPrevious();
 
 private:
     // attributes
@@ -104,8 +118,16 @@ private:
 
     Button *playButton;
     Button *exitButton;
-    Button *nextButton;
+    Button *nextLevelButton;
     Button *retryButton;
+    Button *selectButton;
+    Button *nextButton;
+    Button *prevButton;
+
+    int selectedNumber;
+
+    QGraphicsPixmapItem *selectedShip;
+    QString shipPath;
 
     QTimer *spawnTimer;
     QTimer *levelTimer;

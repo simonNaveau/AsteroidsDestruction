@@ -6,6 +6,7 @@
 #include <QGraphicsTextItem>
 #include <QFontDatabase>
 #include <stdlib.h>
+#include <QImage>
 #include "Game.h"
 #include "ObstacleItem.h"
 #include "LifeBonus.h"
@@ -54,6 +55,8 @@ void Game::start() {
         levelTimer->start(levels[currentLevel-1]->getLevelTime());
         refreshTimer->start(10);
 
+        ship->setPixmap(QPixmap(shipPath));
+
         /**
           Create object spawner
             -> init ObstacleObject spawner
@@ -81,12 +84,56 @@ void Game::displayMenu() {
     // play button
     playButton->setVisible(1);
     playButton->resetHover();
-    connect(playButton, SIGNAL(clicked()), this, SLOT(start()));
+    connect(playButton, SIGNAL(clicked()), this, SLOT(displaySelect()));
 
     // exit button
     exitButton->setVisible(1);
     exitButton->resetHover();
     connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
+}
+
+void Game::displaySelect() {
+    clearDisplay();
+    // game title
+    setTitle("Choose your ship");
+    title->setVisible(1);
+
+    // select button
+    selectButton->setVisible(1);
+    selectButton->resetHover();
+    connect(selectButton, SIGNAL(clicked()), this, SLOT(start()));
+
+    // next button
+    nextButton->setVisible(1);
+    nextButton->resetHover();
+    connect(nextButton, SIGNAL(clicked()), this, SLOT(selectNext()));
+
+    // prev button
+    prevButton->setVisible(1);
+    prevButton->resetHover();
+    connect(prevButton, SIGNAL(clicked()), this, SLOT(selectPrevious()));
+
+    selectedShip->setVisible(1);
+}
+
+void Game::selectNext() {
+    if(selectedNumber<3) {
+        selectedNumber++;
+    } else {
+        selectedNumber = 0;
+    }
+    shipPath = QString(":/images/Ships/ship%1.png").arg(selectedNumber);
+    setSelectedShip(shipPath);
+}
+
+void Game::selectPrevious() {
+    if(selectedNumber>0) {
+        selectedNumber--;
+    } else {
+        selectedNumber = 3;
+    }
+    shipPath = QString(":/images/Ships/ship%1.png").arg(selectedNumber);
+    setSelectedShip(shipPath);
 }
 
 void Game::displayDefeat() {
@@ -136,8 +183,8 @@ void Game::displayLevelSucess() {
         title->setVisible(1);
 
         // next button
-        nextButton->setVisible(1);
-        connect(nextButton, SIGNAL(clicked()), this, SLOT(start()));
+        nextLevelButton->setVisible(1);
+        connect(nextLevelButton, SIGNAL(clicked()), this, SLOT(start()));
 
         currentLevel += 1;
     }
@@ -220,17 +267,36 @@ void Game::init() {
     setExitButton("Exit");
     scene->addItem(exitButton);
 
-    nextButton = new Button("");
-    setNextButton("Next level");
-    scene->addItem(nextButton);
+    nextLevelButton = new Button("");
+    setNextLevelButton("Next level");
+    scene->addItem(nextLevelButton);
 
     retryButton = new Button("");
     setRetryButton("Retry");
     scene->addItem(retryButton);
 
+    selectButton = new Button("");
+    setSelectButton("Select");
+    scene->addItem(selectButton);
+
+    nextButton = new Button("");
+    setNextButton(">");
+    scene->addItem(nextButton);
+
+    prevButton = new Button("");
+    setPrevButton("<");
+    scene->addItem(prevButton);
+
+    selectedNumber = 0;
+    shipPath = QString(":/images/Ships/ship%1.png").arg(selectedNumber);
+
+    selectedShip = new QGraphicsPixmapItem();
+    setSelectedShip(shipPath);
+    scene->addItem(selectedShip);
+
     ship = new Spaceship(1000);
     health->setHealth(ship->getLife());
-    ship->setPixmap(QPixmap(":/images/ship.png"));
+    ship->setPixmap(QPixmap(shipPath));
     ship->setFlag(QGraphicsItem::ItemIsFocusable);  //make focusable
     scene->addItem(ship);
 
@@ -315,14 +381,18 @@ void Game::refreshLoading()
 }
 
 void Game::clearDisplay() {
+    selectedShip->setVisible(0);
     title->setVisible(0);
     levelText->setVisible(0);
     timeLeftText->setVisible(0);
     finalScore->setVisible(0);
     playButton->setVisible(0);
     exitButton->setVisible(0);
-    nextButton->setVisible(0);
+    nextLevelButton->setVisible(0);
     retryButton->setVisible(0);
+    selectButton->setVisible(0);
+    nextButton->setVisible(0);
+    prevButton->setVisible(0);
     score->setVisible(0);
     health->setVisible(0);
     ship->setVisible(0);
@@ -398,19 +468,49 @@ void Game::setExitButton(QString newExitButtontext) {
     exitButton->resetHover();
 }
 
+void Game::setNextLevelButton(QString newNextLevelButtonText) {
+    nextLevelButton->setText(newNextLevelButtonText);
+    int x = int(width()/2 - nextLevelButton->boundingRect().width()/2);
+    int y = 400;
+    nextLevelButton->setPos(x, y);
+    nextLevelButton->resetHover();
+}
+
+void Game::setRetryButton(QString newRetryButtonText){
+    retryButton->setText(newRetryButtonText);
+    retryButton->setPos(50, 370);
+    retryButton->resetHover();
+}
+
+void Game::setSelectButton(QString newSelectButtonText) {
+    selectButton->setText(newSelectButtonText);
+    int x = int(width()/2 - selectButton->boundingRect().width()/2);
+    int y = 600;
+    selectButton->setPos(x, y);
+    selectButton->resetHover();
+}
+
 void Game::setNextButton(QString newNextButtonText) {
     nextButton->setText(newNextButtonText);
-    int x = int(width()/2 - nextButton->boundingRect().width()/2);
-    int y = 400;
+    int x = int(width() - nextButton->boundingRect().width() - 250);
+    int y = 300;
     nextButton->setPos(x, y);
     nextButton->resetHover();
 }
 
-void Game::setRetryButton(QString newRetryButtonText)
-{
-    retryButton->setText(newRetryButtonText);
-    retryButton->setPos(50, 370);
-    retryButton->resetHover();
+void Game::setPrevButton(QString newPrevButtonText) {
+    prevButton->setText(newPrevButtonText);
+    int x = 250;
+    int y = 300;
+    prevButton->setPos(x, y);
+    prevButton->resetHover();
+}
+
+void Game::setSelectedShip(QString newSelectShip) {
+    selectedShip->setPixmap(QPixmap(newSelectShip));
+    int x = int(width()/2 - selectedShip->boundingRect().width()/2);
+    int y = 300;
+    selectedShip->setPos(x, y);
 }
 
 Spaceship *Game::getShip() {

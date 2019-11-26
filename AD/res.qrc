@@ -28,6 +28,10 @@
         <file>Bonus/bonus1.png</file>
         <file>Bonus/bonus2.png</file>
         <file>Bonus/bonus3.png</file>
+        <file>Ships/ship0.png</file>
+        <file>Ships/ship1.png</file>
+        <file>Ships/ship2.png</file>
+        <file>Ships/ship3.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>planetncompact.ttf</file>
