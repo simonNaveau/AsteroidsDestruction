@@ -28,9 +28,9 @@ Spaceship::~Spaceship() {
  * @param event
  */
 void Spaceship::keyPressEvent(QKeyEvent *event) {
-    if (event->key() == Qt::Key_Left) {
+    if (event->key() == Qt::Key_Left or event->key() == Qt::Key_Q) {
         rotateLeft();
-    } else if (event->key() == Qt::Key_Right) {
+    } else if (event->key() == Qt::Key_Right or event->key() == Qt::Key_D) {
         rotateRight();
     } else if (event->key() == Qt::Key_Space) {
         //create a bullet
@@ -41,7 +41,7 @@ void Spaceship::keyPressEvent(QKeyEvent *event) {
 
         //Play sound
         game->getSoundBox()->playShot();
-    } else if (event->key() == Qt::Key_Up) {
+    } else if (event->key() == Qt::Key_Up or event->key() == Qt::Key_Z) {
         speed = 8;
         timer = new QTimer();
         connect(timer, SIGNAL(timeout()), this, SLOT(resetSpeed()));
