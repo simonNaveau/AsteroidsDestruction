@@ -8,9 +8,11 @@ class Health : public QGraphicsTextItem {
 public:
     Health(QGraphicsItem *parent = nullptr);
 
-    void setHealth(int);
+    void setHealth(int newHealth);
 
     int getHealth();
+
+    void setHealthPos(int x, int y);
 
 public:
     int health;

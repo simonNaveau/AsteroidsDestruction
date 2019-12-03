@@ -10,7 +10,7 @@
 #include "LifeBonus.h"
 
 Game::Game() {
-    setWindowTitle("AsteroidsDestruction");
+    setWindowTitle("Asteroid Destruction");
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(1280, 720); //Size of the mainWindow
@@ -63,12 +63,14 @@ void Game::start() {
         spawnTimer->start(levels[currentLevel - 1]->getAsteroSpawnFreq());
 
         setLevelText("Level " + QString::number(getCurrentLevel()));
-        setTimeLeftText("Time left " + QString::number(levelTimer->interval()));
+        setTimeLeftText(QString::number(levelTimer->interval()));
 
         levelText->setVisible(1);
         timeLeftText->setVisible(1);
-        score->setVisible(1);
+        health->setHealthPos(width() / 4 + 20,0);
         health->setVisible(1);
+        score->setScorePos(2 * width() / 4 + 20,0);
+        score->setVisible(1);
     }
 }
 
@@ -83,6 +85,11 @@ void Game::displayMenu() {
     playButton->setVisible(1);
     playButton->resetHover();
     connect(playButton, SIGNAL(clicked()), this, SLOT(displaySelect()));
+
+    // controls button
+    controlsButton->setVisible(1);
+    controlsButton->resetHover();
+    connect(controlsButton, SIGNAL(clicked()), this, SLOT(displayControls()));
 
     // exit button
     exitButton->setVisible(1);
@@ -134,6 +141,17 @@ void Game::selectPrevious() {
     setSelectedShip(shipPath);
 }
 
+void Game::displayControls() {
+    clearDisplay();
+
+    // play button
+    setSelectButton("Play");
+    selectButton->setVisible(1);
+    connect(selectButton, SIGNAL(clicked()), this, SLOT(start()));
+
+    controls->setVisible(1);
+}
+
 void Game::displayDefeat() {
     stopSpawner();
     stopLevel();
@@ -147,7 +165,7 @@ void Game::displayDefeat() {
     setFinalScore("Score : " + QString::number(score->getScore()));
     finalScore->setVisible(1);
 
-    // play button
+    // retry button
     retryButton->setVisible(1);
     retryButton->resetHover();
     connect(retryButton, SIGNAL(clicked()), this, SLOT(reinit()));
@@ -240,6 +258,7 @@ void Game::init() {
     scene->addItem(finalScore);
 
     levelText = new QGraphicsTextItem("");
+    levelText->setZValue(100);
     scene->addItem(levelText);
 
     title = new QGraphicsTextItem("");
@@ -248,18 +267,29 @@ void Game::init() {
     loadingText = new QGraphicsTextItem("");
     scene->addItem(loadingText);
 
+    controls = new QGraphicsPixmapItem();
+    controls->setPixmap(QPixmap(":/images/controls.png"));
+    scene->addItem(controls);
+
     timeLeftText = new QGraphicsTextItem("");
+    timeLeftText->setZValue(100);
     scene->addItem(timeLeftText);
 
     score = new Score();
+    score->setZValue(100);
     scene->addItem(score);
 
     health = new Health();
+    health->setZValue(100);
     scene->addItem(health);
 
     playButton = new Button("");
     setPlayButton("Play");
     scene->addItem(playButton);
+
+    controlsButton = new Button("");
+    setControlsButton("Controls");
+    scene->addItem(controlsButton);
 
     exitButton = new Button("");
     setExitButton("Exit");
@@ -354,9 +384,9 @@ void Game::refresh() {
     long sec = milli / 1000;
     milli = milli - 1000 * sec;
     if (sec >= 10) {
-        setTimeLeftText("Time left " + QString::number(min) + ":" + QString::number(sec));
+        setTimeLeftText(QString::number(min) + ":" + QString::number(sec));
     } else {
-        setTimeLeftText("Time left " + QString::number(min) + ":0" + QString::number(sec));
+        setTimeLeftText(QString::number(min) + ":0" + QString::number(sec));
     }
 }
 
@@ -377,6 +407,8 @@ void Game::refreshLoading() {
 }
 
 void Game::clearDisplay() {
+    controlsButton->setVisible(0);
+    controls->setVisible(0);
     selectedShip->setVisible(0);
     title->setVisible(0);
     levelText->setVisible(0);
@@ -400,18 +432,18 @@ void Game::clearDisplay() {
 void Game::setLevelText(QString newLevelText) {
     levelText->setPlainText(newLevelText);
     levelText->setDefaultTextColor(QColor(255, 255, 255, 255));
-    levelText->setFont(QFont("Planet N Compact", 16));
-    int x = 0;
-    int y = 50;
+    levelText->setFont(QFont("Planet N Compact", 17));
+    int x = 20;
+    int y = 0;
     levelText->setPos(x, y);
 }
 
 void Game::setTimeLeftText(QString newTimeLeftText) {
-    timeLeftText->setPlainText(newTimeLeftText);
+    timeLeftText->setPlainText("Time : " + newTimeLeftText);
     timeLeftText->setDefaultTextColor(QColor(255, 255, 255, 255));
-    timeLeftText->setFont(QFont("Planet N Compact", 16));
-    int x = 0;
-    int y = 75;
+    timeLeftText->setFont(QFont("Planet N Compact", 17));
+    int x = 3 * width() / 4 + 20;
+    int y = 0;
     timeLeftText->setPos(x, y);
 }
 
@@ -456,9 +488,15 @@ void Game::setPlayButton(QString newPlayButtontext) {
     playButton->resetHover();
 }
 
+void Game::setControlsButton(QString newControlsButton) {
+    controlsButton->setText(newControlsButton);
+    controlsButton->setPos(50, 450);
+    controlsButton->resetHover();
+}
+
 void Game::setExitButton(QString newExitButtontext) {
     exitButton->setText(newExitButtontext);
-    exitButton->setPos(50, 450);
+    exitButton->setPos(50, 530);
     exitButton->resetHover();
 }
 

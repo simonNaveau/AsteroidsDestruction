@@ -7,8 +7,8 @@ Score::Score(QGraphicsItem *parent) : QGraphicsTextItem(parent) {
 
     //draw the text
     setPlainText("Score: " + QString::number(score));
-    setDefaultTextColor(Qt::blue);
-    setFont(QFont("Planet N Compact", 16));
+    setDefaultTextColor(Qt::white);
+    setFont(QFont("Planet N Compact", 17));
 }
 
 void Score::increase() {
@@ -28,4 +28,8 @@ void Score::decrease() {
 void Score::setScore(int newScore) {
     score = newScore;
     setPlainText("Score: " + QString::number(score));
+}
+
+void Score::setScorePos(int x, int y) {
+    setPos(x,y);
 }

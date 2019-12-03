@@ -32,6 +32,7 @@
         <file>Ships/ship1.png</file>
         <file>Ships/ship2.png</file>
         <file>Ships/ship3.png</file>
+        <file>controls.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>planetncompact.ttf</file>

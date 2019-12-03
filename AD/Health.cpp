@@ -7,9 +7,8 @@ Health::Health(QGraphicsItem *parent) : QGraphicsTextItem(parent) {
 
     //draw the text
     setPlainText("Health: " + QString::number(health));
-    setDefaultTextColor(Qt::red);
-    setFont(QFont("Planet N Compact", 16));
-    setPos(x(), 25);
+    setDefaultTextColor(Qt::white);
+    setFont(QFont("Planet N Compact", 17));
 }
 
 void Health::setHealth(int newHealth) {
@@ -19,4 +18,8 @@ void Health::setHealth(int newHealth) {
 
 int Health::getHealth() {
     return health;
+}
+
+void Health::setHealthPos(int x, int y) {
+    setPos(x,y);
 }

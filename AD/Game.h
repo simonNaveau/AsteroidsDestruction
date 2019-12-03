@@ -46,6 +46,8 @@ public:
 
     void setPlayButton(QString newPlayButtonText);
 
+    void setControlsButton(QString newControlsButton);
+
     void setExitButton(QString newExitButtonText);
 
     void setNextLevelButton(QString newNextLevelButtonText);
@@ -90,6 +92,8 @@ private slots :
 
     void refreshLoading();
 
+    void displayControls();
+
     void displayVictory();
 
     void displayLevelSucess();
@@ -116,7 +120,10 @@ private:
     QGraphicsTextItem *timeLeftText;
     QGraphicsTextItem *loadingText;
 
+    QGraphicsPixmapItem *controls;
+
     Button *playButton;
+    Button *controlsButton;
     Button *exitButton;
     Button *nextLevelButton;
     Button *retryButton;

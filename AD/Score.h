@@ -14,7 +14,9 @@ public:
 
     void decrease();
 
-    void setScore(int);
+    void setScore(int newScore);
+
+    void setScorePos(int x, int y);
 
 private:
     int score;
