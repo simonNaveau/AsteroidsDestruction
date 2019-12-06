@@ -33,7 +33,8 @@ void Game::start() {
 
     // clear the overlay
     clearDisplay();
-
+    this->soundBox->stopMenuTheme();
+    this->soundBox->startLevelTheme();
     loadingTimer->start(60);
 
     if (tmp == 50) {
@@ -80,6 +81,8 @@ void Game::displayMenu() {
     // game title
     setTitle("Asteroid Destruction");
     title->setVisible(1);
+    this->soundBox->stopLevelTheme();
+    this->soundBox->playMenuTheme();
 
     // play button
     playButton->setVisible(1);

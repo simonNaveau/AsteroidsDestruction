@@ -4,7 +4,9 @@
 #include <QFontDatabase>
 #include <QPen>
 #include "Button.h"
+#include "Game.h"
 
+extern Game *game; //there
 Button::Button(QString name, QGraphicsItem *parent) : QGraphicsRectItem(parent) {
     // draw the button
     QBrush brush;
@@ -27,6 +29,7 @@ Button::Button(QString name, QGraphicsItem *parent) : QGraphicsRectItem(parent) 
 
 void Button::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
+        game->getSoundBox()->playClick();
         emit clicked();
     }
 }

@@ -1,4 +1,4 @@
-#ifndef SPACESHIP_H
+﻿#ifndef SPACESHIP_H
 #define SPACESHIP_H
 
 #include <QGraphicsItem>
@@ -7,11 +7,14 @@
 #include <QMediaPlayer>
 #include <QTimer>
 #include "LifeChanger.h"
+#include <QPropertyAnimation>
 
 class Spaceship : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 public:
     int lifePoints;
+
+    QPropertyAnimation animation;
 
     Spaceship(int startingLifePoints, QGraphicsItem *parent = nullptr);
 
@@ -37,6 +40,8 @@ public:
 
     void reset();
 
+    void launchAnimation();
+
     int operator+(LifeChanger *changer);
 
 public slots:
@@ -44,10 +49,16 @@ public slots:
 
     void resetSpeed();
 
+    void animate();
+
 private:
     int speed;
 
+    int animationState;
+
     QTimer *timer;
+
+    QTimer * metronome;
 };
 
 #endif // SPACESHIP_H

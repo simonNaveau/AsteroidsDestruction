@@ -1,8 +1,13 @@
 <RCC>
     <qresource prefix="/sounds">
-        <file>laser.mp3</file>
         <file>explosion.mp3</file>
-        <file>explosion8bits.mp3</file>
+        <file>hit.mp3</file>
+        <file>laser.mp3</file>
+        <file>menuTheme.mp3</file>
+        <file>levelTheme.mp3</file>
+        <file>click.mp3</file>
+        <file>explo.mp3</file>
+        <file>pickup.mp3</file>
     </qresource>
     <qresource prefix="/images">
         <file>ship.png</file>

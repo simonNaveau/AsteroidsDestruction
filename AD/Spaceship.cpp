@@ -7,12 +7,12 @@
 #include "LifeBonus.h"
 #include "Shot.h"
 #include "Game.h"
+#include <QGraphicsOpacityEffect>
 
 extern Game *game; //there
 
 Spaceship::Spaceship(int startingLifePoints, QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent) {
     lifePoints = startingLifePoints;
-
     //connect
     QTimer *timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(moveAutoForward()));
@@ -81,9 +81,39 @@ void Spaceship::resetSpeed() {
     delete timer;
 }
 
+void Spaceship::animate(){
+    qreal startingOpa = opacity();
+
+    if(animationState == 4 || animationState == 2){
+        if(startingOpa > 0.1){
+          setOpacity(startingOpa-0.1);
+        } else {
+            animationState--;
+        }
+    } else if(animationState == 3 || animationState == 1){
+        if(startingOpa < 0.95){
+          setOpacity(startingOpa+0.1);
+        } else {
+            animationState--;
+        }
+    } else if(animationState == 0){
+        setOpacity(1);
+        animationState = 4;
+        metronome->stop();
+    }
+}
+
 void Spaceship::reset() {
     speed = 0;
     setRotation(0);
+}
+
+void Spaceship::launchAnimation(){
+    metronome = new QTimer();
+    setOpacity(0.99);
+    animationState = 4;
+    connect(metronome, SIGNAL(timeout()), this, SLOT(animate()));
+    metronome->start(30);
 }
 
 int Spaceship::operator+(LifeChanger *changer) {
@@ -120,6 +150,7 @@ void Spaceship::checkBonusCollision() {
         if (typeid(*(colliding_items[i])) == typeid(LifeBonus)) {
             this->setLife(*this + qgraphicsitem_cast<LifeBonus *>(colliding_items[i]));
             game->getHealth()->setHealth(this->getLife());
+            game->getSoundBox()->playPickup();
             scene()->removeItem(colliding_items[i]);
             delete colliding_items[i];
             return;

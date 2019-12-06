@@ -139,12 +139,17 @@ void ObstacleItem::checkSpaceshipCollision() {
     QList < QGraphicsItem * > colliding_items = collidingItems();
     for (int i = 0, n = colliding_items.size(); i < n; ++i) {
         if (typeid(*(colliding_items[i])) == typeid(Spaceship)) {
+            Spaceship *var = qgraphicsitem_cast<Spaceship*>(colliding_items[i]);
+            var->launchAnimation();
             if (this->size == 0) {
                 game->getShip()->decreaseLife(100);//decrease health
+                game->getSoundBox()->playHit();
             } else if (this->size == 1) {
                 game->getShip()->decreaseLife(50);//decrease health
+                game->getSoundBox()->playHit();
             } else {
                 game->getShip()->decreaseLife(25);//decrease health
+                game->getSoundBox()->playHit();
             }
 
             //Add loosing screen here
