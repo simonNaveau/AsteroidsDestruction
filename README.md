@@ -13,6 +13,9 @@ First idea class diagram :
 A little view created in Adobe Illustrator to show what the game should look like.
 ![Preview](resources/preview.png)
 
+What the game is actually looking.
+![Preview](resources/final_view_exemple.png)
+
 # Features to add or structure to follow
 
 ## > To add on Game Structure part (Game, levels, ...)
