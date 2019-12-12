@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['score_154',['Score',['../class_score.html#a997b501525bfafd60ac248a8c96f341f',1,'Score']]],
+  ['setasterospawnfreq_155',['setAsteroSpawnFreq',['../class_level.html#a05256b43d84845d0632c9a85eb4583dd',1,'Level']]],
+  ['sethealth_156',['setHealth',['../class_health.html#a12441a3df71e2214c5dc6f6c8fd25dce',1,'Health']]],
+  ['sethealthpos_157',['setHealthPos',['../class_health.html#ac1bf2ed665021c318084f5f3d76886ef',1,'Health']]],
+  ['setleveltime_158',['setLevelTime',['../class_level.html#a3229deeec0c0f17617da8d5b206172e3',1,'Level']]],
+  ['setlife_159',['setLife',['../class_spaceship.html#af451ae318611f607d65982a2f0b078d0',1,'Spaceship']]],
+  ['setscore_160',['setScore',['../class_score.html#a0ee97fd8d0f05a2e3c76f2516042275f',1,'Score']]],
+  ['setscorepos_161',['setScorePos',['../class_score.html#a95e7dca05adf180bfb4a4fecbf3ab68d',1,'Score']]],
+  ['settext_162',['setText',['../class_button.html#a7745aa1db9061f266f138073b00b7284',1,'Button']]],
+  ['settimer_163',['setTimer',['../class_obstacle_item.html#a18f6576157e6fd4abb58e94ce64f217c',1,'ObstacleItem']]],
+  ['shot_164',['Shot',['../class_shot.html#a8a2aeb1bbb59f748d11e0d3081fb9aff',1,'Shot']]],
+  ['showexplosion_165',['showExplosion',['../class_spawner.html#ae77312d29f687003c27161f979964ecd',1,'Spawner']]],
+  ['soundbox_166',['SoundBox',['../class_sound_box.html#aa9187d511aa2dea1556ee5aadcbabc96',1,'SoundBox']]],
+  ['spaceship_167',['Spaceship',['../class_spaceship.html#ab4e870636a34369b5c23ee3e71d3868e',1,'Spaceship']]],
+  ['spawnbigobstacle_168',['spawnBigObstacle',['../class_spawner.html#a6e3ab03533cb60ae7ab24bfe6ae875e2',1,'Spawner']]],
+  ['spawner_169',['Spawner',['../class_spawner.html#a3e3aa3ccff73556625359e75f64d0dd0',1,'Spawner']]],
+  ['spawnintermediateobstacle_170',['spawnIntermediateObstacle',['../class_spawner.html#ab18e0ffe4f07f9843fa304ace0af88c8',1,'Spawner']]],
+  ['spawnlifebonus_171',['spawnLifeBonus',['../class_spawner.html#aabe0c5ba7d9d210e6a7269ac5ffe91e8',1,'Spawner']]],
+  ['spawnsmallobstacle_172',['spawnSmallObstacle',['../class_spawner.html#aa4fd8300372f8937deab28de6d3c921e',1,'Spawner']]],
+  ['start_173',['start',['../class_game.html#a3d9b98f7c4a96ecf578f75b96c9f0e90',1,'Game']]],
+  ['startleveltheme_174',['startLevelTheme',['../class_sound_box.html#a39234d5a9d3f225dae30ee4b5aca1bfe',1,'SoundBox']]],
+  ['stoplevel_175',['stopLevel',['../class_game.html#ab4136d845c2959b9b385ba237c7d369e',1,'Game']]],
+  ['stopleveltheme_176',['stopLevelTheme',['../class_sound_box.html#a0fc79a383a0aefa3bac5252d538f42b6',1,'SoundBox']]],
+  ['stopmenutheme_177',['stopMenuTheme',['../class_sound_box.html#a4aaca5cbdfeb11e2ec2242958db010e0',1,'SoundBox']]],
+  ['stopspawner_178',['stopSpawner',['../class_game.html#a5d144a6348408cc3fab02537019170d7',1,'Game']]]
+];
