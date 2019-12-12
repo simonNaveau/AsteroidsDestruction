@@ -6,7 +6,8 @@
 #include "Button.h"
 #include "Game.h"
 
-extern Game *game; //there
+extern Game *game;
+
 Button::Button(QString name, QGraphicsItem *parent) : QGraphicsRectItem(parent) {
     // draw the button
     QBrush brush;

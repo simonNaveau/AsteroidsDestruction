@@ -12,7 +12,6 @@ Shot::Shot(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent) {
     //draw the bullet
     shotAngle = game->getShip()->rotation() - 90;
     setPixmap(QPixmap(":/images/Shot.png"));
-    setTransformOriginPoint(pixmap().width() / 2, pixmap().height() / 2);
     setRotation(shotAngle);
 
     //connect

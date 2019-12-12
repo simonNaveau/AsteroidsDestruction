@@ -2,19 +2,21 @@
 #include <QGraphicsScene>
 #include <QtMath>
 #include <QTimer>
+#include <QGraphicsOpacityEffect>
+
 #include "Spaceship.h"
 #include "ObstacleItem.h"
 #include "LifeBonus.h"
 #include "Shot.h"
 #include "Game.h"
-#include <QGraphicsOpacityEffect>
 
-extern Game *game; //there
+
+extern Game *game; //Main game instance
 
 Spaceship::Spaceship(int startingLifePoints, QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent) {
     lifePoints = startingLifePoints;
-    //connect
-    QTimer *timer = new QTimer();
+    timer = new QTimer();
+    metronome = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(moveAutoForward()));
     timer->start(5);
 }
@@ -23,24 +25,30 @@ Spaceship::~Spaceship() {
     timer->stop();
 }
 
-/**
+/*!
  * @brief Spaceship::keyPressEvent Waiting to do actions on keys pressed
  * @param event
  */
 void Spaceship::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Left or event->key() == Qt::Key_Q) {
         rotateLeft();
+
     } else if (event->key() == Qt::Key_Right or event->key() == Qt::Key_D) {
         rotateRight();
-    } else if (event->key() == Qt::Key_Space) {
-        //create a bullet
-        Shot *shot = new Shot();
-        // /!\ A changer: Trouver la formule pour faire partir les tirs du centre du vaisseau.
-        shot->setPos(x() + (pixmap().width() / 2) - shot->pixmap().width() / 2, y() - shot->pixmap().height());
-        scene()->addItem(shot);
 
-        //Play sound
+    } else if (event->key() == Qt::Key_Space) {
+
+        Shot *shot = new Shot();
+        if(rotation()> 150 && rotation() < 210){
+            shot->setPos(shipCenterX+(shot->pixmap().height()/2), shipCenterY);
+        } else {
+
+            shot->setPos(shipCenterX-(shot->pixmap().height()/2), shipCenterY);
+        }
+        shot->setZValue(-10);
+        scene()->addItem(shot);
         game->getSoundBox()->playShot();
+
     } else if (event->key() == Qt::Key_Up or event->key() == Qt::Key_Z) {
         speed = 8;
         timer = new QTimer();
@@ -72,8 +80,11 @@ void Spaceship::moveAutoForward() {
     if (x() + dx + pixmap().width() <= scene()->width() && x() + dx >= 0 &&
         y() + dy + pixmap().height() <= scene()->height() && y() + dy >= 0) {
         setPos(x() + dx, y() + dy);
+        shipCenterX = shipCenterX + dx;
+        shipCenterY = shipCenterY + dy;
     }
     checkBonusCollision();
+    if(!(metronome->isActive()) && opacity() != 1.0) setOpacity(1);
 }
 
 void Spaceship::resetSpeed() {
@@ -83,7 +94,6 @@ void Spaceship::resetSpeed() {
 
 void Spaceship::animate(){
     qreal startingOpa = opacity();
-
     if(animationState == 4 || animationState == 2){
         if(startingOpa > 0.1){
           setOpacity(startingOpa-0.1);
@@ -109,11 +119,15 @@ void Spaceship::reset() {
 }
 
 void Spaceship::launchAnimation(){
-    metronome = new QTimer();
-    setOpacity(0.99);
+    if(metronome != nullptr){
+        metronome->stop();
+        setOpacity(1);
+    } else {
+        metronome = new QTimer();
+    }
     animationState = 4;
     connect(metronome, SIGNAL(timeout()), this, SLOT(animate()));
-    metronome->start(30);
+    metronome->start(40);
 }
 
 int Spaceship::operator+(LifeChanger *changer) {

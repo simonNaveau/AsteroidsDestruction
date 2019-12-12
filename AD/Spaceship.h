@@ -44,6 +44,9 @@ public:
 
     int operator+(LifeChanger *changer);
 
+    qreal shipCenterX;
+    qreal shipCenterY;
+
 public slots:
     void moveAutoForward();
 
@@ -58,7 +61,7 @@ private:
 
     QTimer *timer;
 
-    QTimer * metronome;
+    QTimer *metronome;
 };
 
 #endif // SPACESHIP_H

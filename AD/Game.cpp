@@ -51,6 +51,9 @@ void Game::start() {
         ship->setPos((width() / 2) - ship->pixmap().width() / 2,
                      (height() / 2) - ship->pixmap().height() / 2);
 
+        ship->shipCenterX = ship->x() + ship->pixmap().width() / 2;
+        ship->shipCenterY = ship->y() + ship->pixmap().height() / 2;
+
         levelTimer->start(levels[currentLevel - 1]->getLevelTime());
         refreshTimer->start(10);
 
