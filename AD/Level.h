@@ -1,33 +1,47 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
+/*!
+ * \brief The Level class used to create levels
+ */
 class Level {
 public:
-    // constructor
+    /*!
+     * \brief Constructor
+     */
     Level();
 
-    // methods
+    /*!
+     * \brief Sets the time required to finish the level
+     */
     void setLevelTime(int newTime);
 
-    void setAsteroDmg(int newAsteroDmg); // not used
-
-    void setAsteroSpeed(int newAsteroSpeed); // not used
-
+    /*!
+     * \brief Sets the spawning frequency of asteroids
+     */
     void setAsteroSpawnFreq(int newAsteroSpawnFreq);
-
+    /*!
+     * \brief Gets the time required to finish the level
+     * \return The time required to finish the level
+     */
     int getLevelTime();
 
-    int getAsteroDmg(); // not used
-
-    int getAsteroSpeed(); // not used
-
+    /*!
+     * \brief Gets the spawning frequency of asteroids
+     * \return The spawning frequency of asteroids
+     */
     int getAsteroSpawnFreq();
 
 private:
-    // attributes
+
+    /*!
+     * \brief levelTime The time required to finish the level
+     */
     int levelTime;
-    int asteroDmg; // not used
-    int asteroSpeed; // not used
+
+    /*!
+     * \brief asteroSpawnFreq The spawning frequency of asteroids
+     */
     int asteroSpawnFreq;
 };
 

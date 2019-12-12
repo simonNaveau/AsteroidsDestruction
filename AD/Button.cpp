@@ -35,11 +35,11 @@ void Button::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     }
 }
 
-void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event) {
+void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *) {
     text->setDefaultTextColor(QColor(125, 125, 125, 255));
 }
 
-void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event) {
+void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *) {
     text->setDefaultTextColor(QColor(255, 255, 255, 255));
 }
 

@@ -37,7 +37,7 @@ void Game::start() {
     this->soundBox->startLevelTheme();
     loadingTimer->start(60);
 
-    if (tmp == 50) {
+    if (loadingTime == 50) {
         loadingTimer->stop();
 
         loadingText->setVisible(0);
@@ -355,7 +355,7 @@ void Game::init() {
     fontSize2 = 300;
     fontSize3 = 300;
 
-    tmp = 0;
+    loadingTime = 0;
 
     int freq = 5000;
     int levelTime = 30000;
@@ -397,14 +397,14 @@ void Game::refresh() {
 }
 
 void Game::refreshLoading() {
-    tmp = tmp + 1;
-    if (tmp <= 16) {
+    loadingTime = loadingTime + 1;
+    if (loadingTime <= 16) {
         setLoadingText("3", fontSize1);
         fontSize1 = fontSize1 - 5;
-    } else if (tmp <= 33) {
+    } else if (loadingTime <= 33) {
         setLoadingText("2", fontSize2);
         fontSize2 = fontSize2 - 5;
-    } else if (tmp <= 50) {
+    } else if (loadingTime <= 50) {
         setLoadingText("1", fontSize3);
         fontSize3 = fontSize3 - 5;
     }
