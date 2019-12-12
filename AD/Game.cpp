@@ -33,7 +33,8 @@ void Game::start() {
 
     // clear the overlay
     clearDisplay();
-
+    this->soundBox->stopMenuTheme();
+    this->soundBox->startLevelTheme();
     loadingTimer->start(60);
 
     if (tmp == 50) {
@@ -49,6 +50,9 @@ void Game::start() {
         ship->setVisible(1);
         ship->setPos((width() / 2) - ship->pixmap().width() / 2,
                      (height() / 2) - ship->pixmap().height() / 2);
+
+        ship->shipCenterX = ship->x() + ship->pixmap().width() / 2;
+        ship->shipCenterY = ship->y() + ship->pixmap().height() / 2;
 
         levelTimer->start(levels[currentLevel - 1]->getLevelTime());
         refreshTimer->start(10);
@@ -80,6 +84,8 @@ void Game::displayMenu() {
     // game title
     setTitle("Asteroid Destruction");
     title->setVisible(1);
+    this->soundBox->stopLevelTheme();
+    this->soundBox->playMenuTheme();
 
     // play button
     playButton->setVisible(1);
