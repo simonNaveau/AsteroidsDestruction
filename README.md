@@ -7,7 +7,7 @@
 
 # Classes Diagram
 First idea class diagram :
-![Diagram](resources/classes_diagram.png)
+![Diagram](resources/classes_diagram_Final.png)
 
 # Preview
 A little view created in Adobe Illustrator to show what the game should look like.
