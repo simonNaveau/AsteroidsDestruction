@@ -1,14 +1,14 @@
-#How to install AsteroidDestruction ?
+# How to install AsteroidDestruction ?
 
-##First Way :
+## First Way :
 
 Just use the installer "AsteroidDestruction_setup.exe" and follow the instruction.
 
-##Second Way :
+## Second Way :
 
 Copy the AsteroidDestruction folder where you want and execute "AsteroidDestruction.exe" too launch the game.
 
-##Third Way :
+## Third Way :
 
 Open the "AD.pro with" Qt Creator and compile in debug or release to launch the game.
 
@@ -16,7 +16,7 @@ Have Fun !!!
 
 
 
-##dll List :
+## dll List :
 
 - AsteroidDestruction.exe
 
