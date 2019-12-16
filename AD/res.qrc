@@ -10,7 +10,6 @@
         <file>pickup.mp3</file>
     </qresource>
     <qresource prefix="/images">
-        <file>ship.png</file>
         <file>background.png</file>
         <file>Shot.png</file>
         <file>Obstacles/Big0.png</file>
